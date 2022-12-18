@@ -1,5 +1,6 @@
 package com.lunatech.assessment.imdb;
 
+import static org.junit.Assert.assertFalse;
 import static org.mockito.ArgumentMatchers.contains;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -41,6 +42,7 @@ class ImdbApplicationTests {
 	@Test
 	void contextLoads() {
 		System.out.println("It worked!!");
+		assertFalse(true);
 	}
 
 	// @BeforeEach

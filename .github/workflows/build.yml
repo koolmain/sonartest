@@ -30,8 +30,42 @@ jobs:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
+      - name: Run Full PMD Analysis
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        id: pmd-full-analysis
+        uses: synergy-au/pmd-analyser-action@v2.1
+        with:
+          analyse-all-code: 'true'
+          pmd-version: 'latest'
+          file-path: './src'
+          rules-path: './pmd-ruleset.xml'
+          error-rules: 'AvoidDirectAccessTriggerMap,AvoidDmlStatementsInLoops,AvoidHardcodingId'
+          note-rules: 'ApexDoc'
+      - name: Run PMD Analysis on Files Changed
+        id: pmd-partial-analysis
+        if: github.event.pull_request != null
+        uses: synergy-au/pmd-analyser-action@v2.1
+        with:
+          pmd-version: 'latest'
+          file-path: './src/main/java'
+          rules-path: './src/main/resources/codequality/pmd/ruleset.xml'
+          error-rules: 'AvoidDirectAccessTriggerMap,AvoidDmlStatementsInLoops,AvoidHardcodingId'
+          note-rules: 'ApexDoc'
+      - name: Upload results to GitHub
+        uses: github/codeql-action/upload-sarif@v1
+        with:
+          sarif_file: pmd-output.sarif
+      - name: No PMD Errors?
+        run: |
+          if ${{ steps.pmd-full-analysis.outputs.error-found }} ${{ steps.pmd-partial-analysis.outputs.error-found }}
+          then
+            exit 3
+          fi
       - name: Build and analyze
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=koolmain_sonartest
+      - uses: jwgmeligmeyling/checkstyle-github-action@master
+        with:
+          path: '**/checkstyle/rules.xml'

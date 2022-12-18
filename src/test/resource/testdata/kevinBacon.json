@@ -1,0 +1,612 @@
+{
+    "nconst": "nm0000102",
+    "primaryName": "Kevin Bacon",
+    "birthYear": 1958,
+    "deathYear": null,
+    "primaryProfession": "actor,producer,soundtrack",
+    "principalsList": [
+        {
+            "id": {
+                "tconstId": "tt0085494",
+                "ordering": 3,
+                "nconstId": "nm0000102"
+            },
+            "category": "actor",
+            "job": null,
+            "characters": "['Dennis']"
+        },
+        {
+            "id": {
+                "tconstId": "tt0083833",
+                "ordering": 3,
+                "nconstId": "nm0000102"
+            },
+            "category": "actor",
+            "job": null,
+            "characters": "['Timothy Fenwick Jr.']"
+        },
+        {
+            "id": {
+                "tconstId": "tt0083962",
+                "ordering": 2,
+                "nconstId": "nm0000102"
+            },
+            "category": "actor",
+            "job": null,
+            "characters": "['Ricky']"
+        },
+        {
+            "id": {
+                "tconstId": "tt0092967",
+                "ordering": 1,
+                "nconstId": "nm0000102"
+            },
+            "category": "actor",
+            "job": null,
+            "characters": "['Everett']"
+        },
+        {
+            "id": {
+                "tconstId": "tt0087277",
+                "ordering": 1,
+                "nconstId": "nm0000102"
+            },
+            "category": "actor",
+            "job": null,
+            "characters": "['Ren']"
+        },
+        {
+            "id": {
+                "tconstId": "tt0093403",
+                "ordering": 1,
+                "nconstId": "nm0000102"
+            },
+            "category": "actor",
+            "job": null,
+            "characters": "['Alan']"
+        },
+        {
+            "id": {
+                "tconstId": "tt0096926",
+                "ordering": 1,
+                "nconstId": "nm0000102"
+            },
+            "category": "actor",
+            "job": null,
+            "characters": "['Nick Chapman']"
+        },
+        {
+            "id": {
+                "tconstId": "tt0094318",
+                "ordering": 1,
+                "nconstId": "nm0000102"
+            },
+            "category": "actor",
+            "job": null,
+            "characters": "['Vic']"
+        },
+        {
+            "id": {
+                "tconstId": "tt0096094",
+                "ordering": 1,
+                "nconstId": "nm0000102"
+            },
+            "category": "actor",
+            "job": null,
+            "characters": "['Jake Briggs']"
+        },
+        {
+            "id": {
+                "tconstId": "tt0099582",
+                "ordering": 2,
+                "nconstId": "nm0000102"
+            },
+            "category": "actor",
+            "job": null,
+            "characters": "['David Labraccio']"
+        },
+        {
+            "id": {
+                "tconstId": "tt0097125",
+                "ordering": 2,
+                "nconstId": "nm0000102"
+            },
+            "category": "actor",
+            "job": null,
+            "characters": "['Martin Thiel']"
+        },
+        {
+            "id": {
+                "tconstId": "tt0100814",
+                "ordering": 1,
+                "nconstId": "nm0000102"
+            },
+            "category": "actor",
+            "job": null,
+            "characters": "['Valentine McKee']"
+        },
+        {
+            "id": {
+                "tconstId": "tt0102011",
+                "ordering": 1,
+                "nconstId": "nm0000102"
+            },
+            "category": "actor",
+            "job": null,
+            "characters": "['Dan Hanson']"
+        },
+        {
+            "id": {
+                "tconstId": "tt0109067",
+                "ordering": 1,
+                "nconstId": "nm0000102"
+            },
+            "category": "actor",
+            "job": null,
+            "characters": "['Jimmy Dolan']"
+        },
+        {
+            "id": {
+                "tconstId": "tt0102733",
+                "ordering": 1,
+                "nconstId": "nm0000102"
+            },
+            "category": "actor",
+            "job": null,
+            "characters": "['Ari']"
+        },
+        {
+            "id": {
+                "tconstId": "tt0102741",
+                "ordering": 1,
+                "nconstId": "nm0000102"
+            },
+            "category": "actor",
+            "job": null,
+            "characters": "['Dennis']"
+        },
+        {
+            "id": {
+                "tconstId": "tt0104257",
+                "ordering": 4,
+                "nconstId": "nm0000102"
+            },
+            "category": "actor",
+            "job": null,
+            "characters": "['Capt. Jack Ross']"
+        },
+        {
+            "id": {
+                "tconstId": "tt0110997",
+                "ordering": 2,
+                "nconstId": "nm0000102"
+            },
+            "category": "actor",
+            "job": null,
+            "characters": "['Wade']"
+        },
+        {
+            "id": {
+                "tconstId": "tt0112384",
+                "ordering": 3,
+                "nconstId": "nm0000102"
+            },
+            "category": "actor",
+            "job": null,
+            "characters": "['Jack Swigert']"
+        },
+        {
+            "id": {
+                "tconstId": "tt0113870",
+                "ordering": 2,
+                "nconstId": "nm0000102"
+            },
+            "category": "actor",
+            "job": null,
+            "characters": "['Henri Young']"
+        },
+        {
+            "id": {
+                "tconstId": "tt0118980",
+                "ordering": 2,
+                "nconstId": "nm0000102"
+            },
+            "category": "actor",
+            "job": null,
+            "characters": "['Ricky Schroth']"
+        },
+        {
+            "id": {
+                "tconstId": "tt0123191",
+                "ordering": 1,
+                "nconstId": "nm0000102"
+            },
+            "category": "self",
+            "job": null,
+            "characters": "['Self - Host','Narrator']"
+        },
+        {
+            "id": {
+                "tconstId": "tt0091814",
+                "ordering": 1,
+                "nconstId": "nm0000102"
+            },
+            "category": "actor",
+            "job": null,
+            "characters": "['Jack Casey']"
+        },
+        {
+            "id": {
+                "tconstId": "tt0112453",
+                "ordering": 1,
+                "nconstId": "nm0000102"
+            },
+            "category": "actor",
+            "job": null,
+            "characters": "['Balto']"
+        },
+        {
+            "id": {
+                "tconstId": "tt0117665",
+                "ordering": 2,
+                "nconstId": "nm0000102"
+            },
+            "category": "actor",
+            "job": null,
+            "characters": "['Nokes']"
+        },
+        {
+            "id": {
+                "tconstId": "tt0119896",
+                "ordering": 3,
+                "nconstId": "nm0000102"
+            },
+            "category": "actor",
+            "job": null,
+            "characters": "['Sam']"
+        },
+        {
+            "id": {
+                "tconstId": "tt0120303",
+                "ordering": 1,
+                "nconstId": "nm0000102"
+            },
+            "category": "actor",
+            "job": null,
+            "characters": "['Billy Magic']"
+        },
+        {
+            "id": {
+                "tconstId": "tt0120890",
+                "ordering": 1,
+                "nconstId": "nm0000102"
+            },
+            "category": "actor",
+            "job": null,
+            "characters": "['Ray Duquette']"
+        },
+        {
+            "id": {
+                "tconstId": "tt0164052",
+                "ordering": 1,
+                "nconstId": "nm0000102"
+            },
+            "category": "actor",
+            "job": null,
+            "characters": "['Sebastian Caine']"
+        },
+        {
+            "id": {
+                "tconstId": "tt0280380",
+                "ordering": 1,
+                "nconstId": "nm0000102"
+            },
+            "category": "actor",
+            "job": null,
+            "characters": "['Hickey']"
+        },
+        {
+            "id": {
+                "tconstId": "tt0156812",
+                "ordering": 2,
+                "nconstId": "nm0000102"
+            },
+            "category": "actor",
+            "job": null,
+            "characters": "['Jack Morris']"
+        },
+        {
+            "id": {
+                "tconstId": "tt0164181",
+                "ordering": 1,
+                "nconstId": "nm0000102"
+            },
+            "category": "actor",
+            "job": null,
+            "characters": "['Tom']"
+        },
+        {
+            "id": {
+                "tconstId": "tt0327056",
+                "ordering": 3,
+                "nconstId": "nm0000102"
+            },
+            "category": "actor",
+            "job": null,
+            "characters": "['Sean Devine']"
+        },
+        {
+            "id": {
+                "tconstId": "tt0361127",
+                "ordering": 1,
+                "nconstId": "nm0000102"
+            },
+            "category": "actor",
+            "job": null,
+            "characters": "['Walter']"
+        },
+        {
+            "id": {
+                "tconstId": "tt0373450",
+                "ordering": 1,
+                "nconstId": "nm0000102"
+            },
+            "category": "actor",
+            "job": null,
+            "characters": "['Lanny']"
+        },
+        {
+            "id": {
+                "tconstId": "tt0388213",
+                "ordering": 4,
+                "nconstId": "nm0000102"
+            },
+            "category": "actor",
+            "job": null,
+            "characters": "['Marty']"
+        },
+        {
+            "id": {
+                "tconstId": "tt0485851",
+                "ordering": 4,
+                "nconstId": "nm0000102"
+            },
+            "category": "actor",
+            "job": null,
+            "characters": "['Love']"
+        },
+        {
+            "id": {
+                "tconstId": "tt0804461",
+                "ordering": 1,
+                "nconstId": "nm0000102"
+            },
+            "category": "actor",
+            "job": null,
+            "characters": "['Nick Hume']"
+        },
+        {
+            "id": {
+                "tconstId": "tt0790736",
+                "ordering": 4,
+                "nconstId": "nm0000102"
+            },
+            "category": "actor",
+            "job": null,
+            "characters": "['Hayes']"
+        },
+        {
+            "id": {
+                "tconstId": "tt0822849",
+                "ordering": 1,
+                "nconstId": "nm0000102"
+            },
+            "category": "actor",
+            "job": null,
+            "characters": "['Tom Stark']"
+        },
+        {
+            "id": {
+                "tconstId": "tt0870111",
+                "ordering": 3,
+                "nconstId": "nm0000102"
+            },
+            "category": "actor",
+            "job": null,
+            "characters": "['Jack Brennan']"
+        },
+        {
+            "id": {
+                "tconstId": "tt13075730",
+                "ordering": 2,
+                "nconstId": "nm0000102"
+            },
+            "category": "actor",
+            "job": null,
+            "characters": "['Fred Snr.']"
+        },
+        {
+            "id": {
+                "tconstId": "tt1112291",
+                "ordering": 3,
+                "nconstId": "nm0000102"
+            },
+            "category": "self",
+            "job": null,
+            "characters": "['Self - Narrator']"
+        },
+        {
+            "id": {
+                "tconstId": "tt1185431",
+                "ordering": 4,
+                "nconstId": "nm0000102"
+            },
+            "category": "actor",
+            "job": null,
+            "characters": "['Dan Devereaux']"
+        },
+        {
+            "id": {
+                "tconstId": "tt1270798",
+                "ordering": 4,
+                "nconstId": "nm0000102"
+            },
+            "category": "actor",
+            "job": null,
+            "characters": "['Sebastian Shaw']"
+        },
+        {
+            "id": {
+                "tconstId": "tt13314546",
+                "ordering": 1,
+                "nconstId": "nm0000102"
+            },
+            "category": "director",
+            "job": null,
+            "characters": null
+        },
+        {
+            "id": {
+                "tconstId": "tt1674785",
+                "ordering": 3,
+                "nconstId": "nm0000102"
+            },
+            "category": "self",
+            "job": null,
+            "characters": "['Self - Actor']"
+        },
+        {
+            "id": {
+                "tconstId": "tt1512235",
+                "ordering": 4,
+                "nconstId": "nm0000102"
+            },
+            "category": "actor",
+            "job": null,
+            "characters": "['Jacques']"
+        },
+        {
+            "id": {
+                "tconstId": "tt1578882",
+                "ordering": 3,
+                "nconstId": "nm0000102"
+            },
+            "category": "actor",
+            "job": null,
+            "characters": "['Jimmy']"
+        },
+        {
+            "id": {
+                "tconstId": "tt2434688",
+                "ordering": 4,
+                "nconstId": "nm0000102"
+            },
+            "category": "self",
+            "job": null,
+            "characters": "['Self']"
+        },
+        {
+            "id": {
+                "tconstId": "tt1781840",
+                "ordering": 2,
+                "nconstId": "nm0000102"
+            },
+            "category": "actor",
+            "job": null,
+            "characters": "['Carroll Caldwell']"
+        },
+        {
+            "id": {
+                "tconstId": "tt1878841",
+                "ordering": 1,
+                "nconstId": "nm0000102"
+            },
+            "category": "actor",
+            "job": null,
+            "characters": "['Peter Taylor']"
+        },
+        {
+            "id": {
+                "tconstId": "tt1518293",
+                "ordering": 2,
+                "nconstId": "nm0000102"
+            },
+            "category": "self",
+            "job": null,
+            "characters": "['Self']"
+        },
+        {
+            "id": {
+                "tconstId": "tt3429036",
+                "ordering": 1,
+                "nconstId": "nm0000102"
+            },
+            "category": "self",
+            "job": null,
+            "characters": "['Self']"
+        },
+        {
+            "id": {
+                "tconstId": "tt2807548",
+                "ordering": 1,
+                "nconstId": "nm0000102"
+            },
+            "category": "self",
+            "job": null,
+            "characters": "['Self']"
+        },
+        {
+            "id": {
+                "tconstId": "tt3696140",
+                "ordering": 1,
+                "nconstId": "nm0000102"
+            },
+            "category": "self",
+            "job": null,
+            "characters": "['Self']"
+        },
+        {
+            "id": {
+                "tconstId": "tt3813310",
+                "ordering": 1,
+                "nconstId": "nm0000102"
+            },
+            "category": "actor",
+            "job": null,
+            "characters": "['Sheriff Kretzer']"
+        },
+        {
+            "id": {
+                "tconstId": "tt4519562",
+                "ordering": 2,
+                "nconstId": "nm0000102"
+            },
+            "category": "self",
+            "job": null,
+            "characters": "['Self']"
+        },
+        {
+            "id": {
+                "tconstId": "tt8201852",
+                "ordering": 1,
+                "nconstId": "nm0000102"
+            },
+            "category": "actor",
+            "job": null,
+            "characters": "['Theo','Stetler']"
+        },
+        {
+            "id": {
+                "tconstId": "tt9833362",
+                "ordering": 3,
+                "nconstId": "nm0000102"
+            },
+            "category": "self",
+            "job": null,
+            "characters": "['Self']"
+        }
+    ]
+}
+    No definition found.
+    Search the web for "tt0096926" »
+    

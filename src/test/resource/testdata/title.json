@@ -1,0 +1,63 @@
+{
+    "tconst": "tt0000630",
+    "titleType": "movie",
+    "primaryTitle": "Hamlet",
+    "originalTitle": "Amleto",
+    "startYear": 1908,
+    "endYear": null,
+    "runtimeMinutes": null,
+    "genres": "Drama",
+    "rating": {
+        "tconst": "tt0000630",
+        "averageRating": 3.2,
+        "numVotes": 11
+    },
+    "crew": {
+        "tconst": "tt0000630",
+        "directors": "nm0143333",
+        "writers": "nm0000636"
+    },
+    "principalsList": [
+        {
+            "id": {
+                "tconstId": "tt0000630",
+                "ordering": 1,
+                "nconstId": "nm0624446"
+            },
+            "category": "actress",
+            "job": null,
+            "characters": "['Ofelia']"
+        },
+        {
+            "id": {
+                "tconstId": "tt0000630",
+                "ordering": 2,
+                "nconstId": "nm0143333"
+            },
+            "category": "director",
+            "job": null,
+            "characters": null
+        },
+        {
+            "id": {
+                "tconstId": "tt0000630",
+                "ordering": 3,
+                "nconstId": "nm0000636"
+            },
+            "category": "writer",
+            "job": "play 'Hamlet'",
+            "characters": null
+        },
+        {
+            "id": {
+                "tconstId": "tt0000630",
+                "ordering": 4,
+                "nconstId": "nm0209738"
+            },
+            "category": "producer",
+            "job": "producer",
+            "characters": null
+        }
+    ],
+    "adult": false
+}

@@ -13,7 +13,7 @@ import com.lunatech.assessment.imdb.service.DegreeService;
 public class DegreeController {
     
     @Autowired
-    private DegreeService ; 
+    private DegreeService degreeService; 
 
     @GetMapping(value = "/{targetActor}/{sourceActor}")
     public int getDegreeForAntor(@PathVariable String targetActor, @PathVariable String sourceActor) throws Exception{

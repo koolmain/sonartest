@@ -31,14 +31,14 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
       - name: Run Full PMD Analysis
-        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        if: github.event.pull_request != null
         id: pmd-full-analysis
         uses: synergy-au/pmd-analyser-action@v2.1
         with:
           analyse-all-code: 'true'
           pmd-version: 'latest'
-          file-path: './src'
-          rules-path: './pmd-ruleset.xml'
+          file-path: './src/main/java'
+          rules-path: './src/main/resources/codequality/pmd/ruleset.xml'
           error-rules: 'AvoidDirectAccessTriggerMap,AvoidDmlStatementsInLoops,AvoidHardcodingId'
           note-rules: 'ApexDoc'
       - name: Run PMD Analysis on Files Changed

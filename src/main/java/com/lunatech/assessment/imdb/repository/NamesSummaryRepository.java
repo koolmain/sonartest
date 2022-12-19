@@ -8,5 +8,9 @@ import org.springframework.data.repository.CrudRepository;
 import com.lunatech.assessment.imdb.model.Name;
 import com.lunatech.assessment.imdb.model.summary.NameSmmary;
 
-public interface NamesRepository extends CrudRepository<Name,String> {
+public interface NamesSummaryRepository extends CrudRepository<Name,String> {
+    
+    Optional<NameSmmary> findByNconst(String nconst);
+
+    
 }

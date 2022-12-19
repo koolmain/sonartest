@@ -136,9 +136,9 @@ public class DegreeServiceImpl implements DegreeService{
                                     .append(actionInFilm.getName())
                                     .toString())
                         .toList());
-        return Optional.of(state); 
+        return Optional.of(state);  
     }
-    
+
     /** 
      * @param title
      * @return Set<ActorInFilm>

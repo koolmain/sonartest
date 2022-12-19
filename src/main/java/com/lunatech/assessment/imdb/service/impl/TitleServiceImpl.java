@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import com.lunatech.assessment.imdb.model.Name;
 import com.lunatech.assessment.imdb.model.Title;
 import com.lunatech.assessment.imdb.repository.TitleRepository;
 import com.lunatech.assessment.imdb.service.TitleService;
@@ -21,8 +22,14 @@ public class TitleServiceImpl implements TitleService {
 
     @Override
     public Optional<Title> getTitleById(String id) {
-        return repository.findById(id); 
-    }
+        Optional<Title> titleOptional = repository.findById(id); 
+        return titleOptional
+                .map(title -> {
+                        List<Name> names = title.getPrincipalsList().stream().map(principal -> principal.getName1()).toList(); 
+                        title.setNames(names);   
+                        return title;
+                    }); 
+    } 
 
     @Override
     public List<Title> fetchTitleByGenre(String genre, int page) {
@@ -40,5 +47,5 @@ public class TitleServiceImpl implements TitleService {
     @Override
     public List<Title> getAllTitlesFromIds(List<String> ids) {
         return repository.getAllTitlesFromIds(ids);
-    } 
+    }
 }

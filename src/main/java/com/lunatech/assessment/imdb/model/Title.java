@@ -18,6 +18,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -73,4 +74,7 @@ public class Title {
     )
     @JsonManagedReference
     private List<Principals> principalsList = new ArrayList<>(); 
+
+    @Transient
+    private List<Name> names = new ArrayList<>(); 
 }

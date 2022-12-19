@@ -23,13 +23,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Delegate;
+
 @Service
 @Getter
 @Setter
 public class DegreeServiceImpl implements DegreeService{
-    enum degreeItem {
-        Name, Title
-    }
+
     @Delegate private State state; 
     @Getter
     @Setter
@@ -39,7 +38,6 @@ public class DegreeServiceImpl implements DegreeService{
         private List<String> visitedTitles= new ArrayList<>(); 
         private List<String> visitedNames = new ArrayList<>(); 
         List<String> path; 
-        //private Map<String,Boolean> cachedNamesResult = new HashMap<>();
     }
     @Getter
     @Setter
@@ -60,6 +58,14 @@ public class DegreeServiceImpl implements DegreeService{
     private NameService nameService; 
     @Autowired
     private TitleService titleService;
+
+    
+    /** 
+     * @param targetActor
+     * @param sourceActor
+     * @return int
+     * @throws Exception
+     */
     @Override
     public int getDegreeOfReachbetweenActors(String targetActor, String sourceActor) throws Exception {
         LinkedList<NameWithDegree> queue = new LinkedList<>(); 
@@ -69,6 +75,14 @@ public class DegreeServiceImpl implements DegreeService{
         Optional<State> resultState = degreeSearch(searchState, queue, targetActor); 
         return resultState.map(currentState -> currentState.getCurrentDegree()).orElse(-1); 
     }
+
+    
+    /** 
+     * @param state
+     * @param queue
+     * @param targetName
+     * @return Optional<State>
+     */
     private Optional<State> degreeSearch(State state, LinkedList<NameWithDegree> queue, String targetName){
         if(queue.isEmpty()){
             return Optional.empty();
@@ -89,16 +103,12 @@ public class DegreeServiceImpl implements DegreeService{
                 state.getVisitedTitles().add(title); 
                 return getLinkedNameIds(title).stream(); 
                 })
-            .collect(Collectors.toList()); 
-       // System.out.println("DDDDDDDDDDDD------- Link names size "+linkedNames.size() +" nextName "+nextNameToTraverse);
+            .toList(); 
         boolean nameResult = linkedNames.stream().anyMatch(actionNactor -> { 
                     boolean matched = actionNactor.getName().equalsIgnoreCase(targetName);
                     if(matched) { element.getPath().add(actionNactor);}
                     return matched; 
                 });
-        
-        //adding result into cache 
-        //state.getCachedNamesResult().put(nextNameToTraverse, nameResult); 
         
         //start searching for target name from one degree linked names to next degree if not found. 
         if(!nameResult){
@@ -111,12 +121,9 @@ public class DegreeServiceImpl implements DegreeService{
                                     List<ActorInFilm> pathHistory = new ArrayList<>();
                                     pathHistory.addAll(element.getPath()); 
                                     pathHistory.add(linkedName); 
-                                    NameWithDegree r = new NameWithDegree(element.getDegree() + 1, linkedName.getName(),pathHistory);
-                                    return r; 
-                                
+                                    return new NameWithDegree(element.getDegree() + 1, linkedName.getName(),pathHistory);
                                 })
-                                .collect(Collectors.toList())); 
-           // System.out.println("DDDDDDDDDDDD------- QUEUE names size "+queue.size());
+                                .toList();
             return degreeSearch(state, queue, targetName); 
         }
         state.setCurrentDegree(element.getDegree());
@@ -128,14 +135,22 @@ public class DegreeServiceImpl implements DegreeService{
                                     .append("-->")
                                     .append(actionInFilm.getName())
                                     .toString())
-                        .collect(Collectors.toList()));
-        System.out.println("Total degree "+ element.getDegree());
-        System.out.println("Path is "+ state.getPath());
+                        .toList();
         return Optional.of(state); 
     }
+    
+    /** 
+     * @param title
+     * @return Set<ActorInFilm>
+     */
     private Set<ActorInFilm> getLinkedNameIds(String title){
         return titleService.getTitleById(title).orElseThrow().getPrincipalsList().stream().map(principal ->  new ActorInFilm(principal.getId().getNconstId(), title)).collect(Collectors.toSet());
     }
+    
+    /** 
+     * @param name
+     * @return Set<String>
+     */
     private Set<String> getLinkedTitleIds(String name){
         return nameService.getNameById(name).orElseThrow().getPrincipalsList().stream().map(principal -> principal.getId().getTconstId()).collect(Collectors.toSet());
     }

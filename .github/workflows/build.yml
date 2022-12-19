@@ -31,7 +31,7 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
       - name: Run Full PMD Analysis
-        if: github.event.pull_request != null
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
         id: pmd-full-analysis
         uses: synergy-au/pmd-analyser-action@v2.1
         with:

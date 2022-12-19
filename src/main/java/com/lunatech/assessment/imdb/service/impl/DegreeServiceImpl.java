@@ -123,7 +123,7 @@ public class DegreeServiceImpl implements DegreeService{
                                     pathHistory.add(linkedName); 
                                     return new NameWithDegree(element.getDegree() + 1, linkedName.getName(),pathHistory);
                                 })
-                                .toList();
+                                .toList());
             return degreeSearch(state, queue, targetName); 
         }
         state.setCurrentDegree(element.getDegree());
@@ -135,7 +135,7 @@ public class DegreeServiceImpl implements DegreeService{
                                     .append("-->")
                                     .append(actionInFilm.getName())
                                     .toString())
-                        .toList();
+                        .toList());
         return Optional.of(state); 
     }
     

@@ -88,15 +88,15 @@ jobs:
           output: results.sarif
           format: sarif
           directory: /src/main/java
-          run-staticcheck: true
-          verbose: true
+          #run-staticcheck: true
+          #verbose: true
           # Adjust severity of non-security issues
           gh-code-scanning-compat: true
           # Force 0 exit code to allow SARIF file generation
           # This will hand over control about PR rejection to the GitHub side
           max-allowed-issues: 2147483647
-          tool: SpotBugs
-          
+          #tool: SpotBugs
+
 
       
       # Upload the SARIF file generated in the previous step

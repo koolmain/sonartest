@@ -47,7 +47,7 @@ jobs:
         uses: synergy-au/pmd-analyser-action@v2.1
         with:
           pmd-version: 'latest'
-          file-path: './src/main/java'
+          file-path: './src/main/java' 
           rules-path: './src/main/resources/codequality/pmd/ruleset.xml'
           error-rules: 'AvoidDirectAccessTriggerMap,AvoidDmlStatementsInLoops,AvoidHardcodingId'
           note-rules: 'ApexDoc'

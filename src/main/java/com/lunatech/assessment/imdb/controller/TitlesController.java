@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lunatech.assessment.imdb.dto.TitleDTO;
 import com.lunatech.assessment.imdb.model.Title;
 import com.lunatech.assessment.imdb.service.TitleService;
 
@@ -20,12 +21,12 @@ public class TitlesController {
 private TitleService titleService; 
 
 @GetMapping(value="details/{id}", produces = "application/hal+json")
-public Title geTitle(@PathVariable String id){
+public TitleDTO geTitle(@PathVariable String id){
     return titleService.getTitleById(id).orElseThrow();    
 }
 
 @GetMapping(value="/toprated/genre/{genre:[a-zA-Z]+}", produces = "application/hal+json")
-public List<Title> fetchTopRatedTitlesBygenre(@PathVariable String genre, @RequestParam(defaultValue = "0") int page){
+public List<TitleDTO> fetchTopRatedTitlesBygenre(@PathVariable String genre, @RequestParam(defaultValue = "0") int page){
     return  titleService.fetchTitleByGenre(genre, page); 
 }
 
@@ -33,7 +34,6 @@ public List<Title> fetchTopRatedTitlesBygenre(@PathVariable String genre, @Reque
 public List<Title> fetchTitleByPrimaryOrOriginalTitle(@PathVariable String titleName, @RequestParam(defaultValue = "0") int page){
     return titleService.fetchTitlesByTitleName(titleName, page); 
 }
-
 
 }
 

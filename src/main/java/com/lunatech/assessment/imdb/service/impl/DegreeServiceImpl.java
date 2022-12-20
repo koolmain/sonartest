@@ -144,7 +144,7 @@ public class DegreeServiceImpl implements DegreeService{
      * @return Set<ActorInFilm>
      */
     private Set<ActorInFilm> getLinkedNameIds(String title){
-        return titleService.getTitleById(title).orElseThrow().getPrincipalsList().stream().map(principal ->  new ActorInFilm(principal.getId().getNconstId(), title)).collect(Collectors.toSet());
+        return titleService.getTitleWithPrincipalsById(title).orElseThrow().getPrincipalsList().stream().map(principal ->  new ActorInFilm(principal.getId().getNconstId(), title)).collect(Collectors.toSet());
     }
     
     /** 

@@ -20,6 +20,8 @@ public class ImdbConfigurations {
         modelMapper.getConfiguration().setSkipNullEnabled(true);
         TypeMap<Title, TitleDTO> properyMapper = modelMapper.createTypeMap(Title.class, TitleDTO.class); 
         properyMapper.addMappings(mapper -> mapper.map(src -> src.getNames(), TitleDTO::setNames));
+        properyMapper.addMappings(mapper -> mapper.map(src -> src.getCrew().getDirectors(), TitleDTO::setDirectors));
+        properyMapper.addMappings(mapper -> mapper.map(src -> src.getCrew().getWriters(), TitleDTO::setWrites));
 
         return modelMapper; 
     }

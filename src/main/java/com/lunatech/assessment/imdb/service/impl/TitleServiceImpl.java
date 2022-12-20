@@ -13,7 +13,9 @@ import org.springframework.stereotype.Service;
 import com.lunatech.assessment.imdb.dto.TitleDTO;
 import com.lunatech.assessment.imdb.model.Name;
 import com.lunatech.assessment.imdb.model.Title;
+import com.lunatech.assessment.imdb.model.summary.TitleSummary;
 import com.lunatech.assessment.imdb.repository.TitleRepository;
+import com.lunatech.assessment.imdb.repository.TitleSummaryRepository;
 import com.lunatech.assessment.imdb.service.TitleService;
 
 
@@ -22,6 +24,9 @@ public class TitleServiceImpl implements TitleService {
     
     @Autowired
     private TitleRepository repository;
+
+    @Autowired
+    private TitleSummaryRepository titleSummaryRepository;
 
     @Autowired
     private ModelMapper modelMapper; 
@@ -58,13 +63,24 @@ public class TitleServiceImpl implements TitleService {
                 }
 
     @Override
-    public List<Title> fetchTitlesByTitleName(String titleName, int page) {
+    public List<TitleDTO> fetchTitlesByTitleName(String titleName, int page) {
         List<Title> titlesByTitleName = repository.findByOriginalTitleOrPrimaryTitleContainingIgnoreCase(titleName, titleName, PageRequest.of(page, 10));
-        return titlesByTitleName;
+        return titlesByTitleName.stream()
+                    .map(title -> {
+                        List<Name> names = title.getPrincipalsList().stream().map(principal -> principal.getName1()).toList(); 
+                        title.setNames(names);   
+                        return title;
+                    })
+                    .map(tile -> modelMapper.map(tile, TitleDTO.class)).toList();
     }
 
     @Override
     public List<Title> getAllTitlesFromIds(List<String> ids) {
         return repository.getAllTitlesFromIds(ids);
+    }
+
+    @Override
+    public Optional<TitleSummary> getTitleSummaryById(String id) {
+        return titleSummaryRepository.findByTconst(id);
     }
 }

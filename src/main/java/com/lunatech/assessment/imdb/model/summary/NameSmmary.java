@@ -7,5 +7,4 @@ public interface NameSmmary {
 
     Integer getBirthYear(); 
 
-    String getPrimaryProfession(); 
 }

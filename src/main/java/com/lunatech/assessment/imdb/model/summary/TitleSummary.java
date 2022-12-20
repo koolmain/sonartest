@@ -4,12 +4,9 @@ import java.util.List;
 
 public interface TitleSummary {
 
-
     String getTconst(); 
 
     String getTitleType(); 
-
-    String getPrimaryTitle(); 
 
     String getOriginalTitle(); 
 
@@ -17,15 +14,8 @@ public interface TitleSummary {
 
     Integer getStartYear(); 
 
-    Integer getEndYear(); 
-
-    Integer getRuntimeMinutes(); 
-
     String getGenres();   
 
     RatingSummary getRating();   
-
-    CrewSummary getCrew();   
     
-    List<PrincipalSummary> getPrincipalsList(); 
 }

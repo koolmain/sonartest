@@ -25,6 +25,7 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
+import com.lunatech.assessment.imdb.dto.TitleDTO;
 import com.lunatech.assessment.imdb.model.Crew;
 import com.lunatech.assessment.imdb.model.Name;
 import com.lunatech.assessment.imdb.model.Principals;
@@ -87,7 +88,7 @@ class ImdbApplicationTests {
 
 		Optional<Title> t1= repository.findById("tt0295701"); 
 		
-		Optional<Title> t = titleService.getTitleById("tt0295701");
+		Optional<TitleDTO> t = titleService.getTitleById("tt0295701");
 		assertFalse(false);
 	}
 

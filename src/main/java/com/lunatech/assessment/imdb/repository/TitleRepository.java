@@ -1,7 +1,10 @@
 package com.lunatech.assessment.imdb.repository;
 
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
@@ -13,6 +16,7 @@ public interface TitleRepository  extends CrudRepository<Title, String > {
 
     List<Title> findByOriginalTitleOrPrimaryTitleContainingIgnoreCase(String originalTitle,String primaryTitle,Pageable pageable);
 
+    @Cacheable("genres")
     @Query(value="SELECT title from Title title join title.rating where title.genres like %:genre%  order by title.rating.averageRating desc")
     Page<Title> findTopRatedTitleByGenres(String genre, Pageable pageable);
 

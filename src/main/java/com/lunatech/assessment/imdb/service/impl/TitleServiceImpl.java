@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -25,18 +26,14 @@ public class TitleServiceImpl implements TitleService {
     @Autowired
     private ModelMapper modelMapper; 
 
+    @Cacheable("titlesForUI")
     @Override
     public Optional<TitleDTO> getTitleById(String id) {
-        Optional<Title> titleOptional = repository.findById(id); 
-        return titleOptional
-                .map(title -> {
-                        List<Name> names = title.getPrincipalsList().stream().map(principal -> principal.getName1()).toList(); 
-                        title.setNames(names);   
-                        return title;
-                    })
+        return getTitleWithPrincipalsById(id)
                 .map(tile -> modelMapper.map(tile, TitleDTO.class)); 
     } 
 
+    @Cacheable("titlesById")
     @Override
     public Optional<Title> getTitleWithPrincipalsById(String id) {
         Optional<Title> titleOptional = repository.findById(id); 

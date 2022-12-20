@@ -1,7 +1,6 @@
 package com.lunatech.assessment.imdb.dto;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter

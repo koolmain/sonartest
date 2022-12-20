@@ -3,17 +3,13 @@ package com.lunatech.assessment.imdb.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.annotations.CollectionId;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrimaryKeyJoinColumn;
@@ -76,5 +72,5 @@ public class Title {
     private List<Principals> principalsList = new ArrayList<>(); 
 
     @Transient
-    private List<Name> names = new ArrayList<>(); 
+    private List<Name> names = new ArrayList<>();     
 }

@@ -24,7 +24,7 @@ import lombok.ToString;
 public class Name {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     private String nconst; 
 
     private String primaryName; 

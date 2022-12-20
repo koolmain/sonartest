@@ -31,7 +31,7 @@ import lombok.ToString;
 public class Title {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     private String tconst; 
 
     @Column(name="titleType")

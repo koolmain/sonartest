@@ -1,23 +1,18 @@
 package com.lunatech.assessment.imdb.service.impl;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.Set;
 import java.util.function.Predicate;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import com.jayway.jsonpath.Option;
 import com.lunatech.assessment.imdb.dto.DegreeDto;
 import com.lunatech.assessment.imdb.dto.DegreePathItem;
 import com.lunatech.assessment.imdb.dto.NameDTO;
@@ -31,6 +26,7 @@ import com.lunatech.assessment.imdb.service.NameService;
 import com.lunatech.assessment.imdb.service.TitleService;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Delegate;
 
@@ -53,6 +49,7 @@ public class DegreeServiceImplIterative implements DegreeService{
     @Getter
     @Setter
     @AllArgsConstructor
+    @NoArgsConstructor
     private class NameWithDegree{
         int degree; 
         String name; 
@@ -105,7 +102,7 @@ public class DegreeServiceImplIterative implements DegreeService{
      * @return Optional<State>
      */
     private DegreeDto degreeSearch(State state, LinkedList<NameWithDegree> queue, String targetName, String sourceName){
-        NameWithDegree secondLastElement = null; 
+        NameWithDegree secondLastElement = new NameWithDegree(); 
 
         while(!queue.isEmpty()){
         
@@ -199,11 +196,11 @@ public class DegreeServiceImplIterative implements DegreeService{
         for(Map.Entry<String,String> entry : steps.entrySet()){
             pathItem = new DegreePathItem(); 
 
-            NameSmmary nm = namesSummary.stream().filter(nameSummmary -> nameSummmary.getNconst().equalsIgnoreCase(entry.getKey())).findFirst().get();
+            NameSmmary nm = namesSummary.stream().filter(nameSummmary -> nameSummmary.getNconst().equalsIgnoreCase(entry.getKey())).findFirst().orElseThrow();
             pathItem.setName(modelMapper.map(nm, NameDTO.class));
             
             if(null != entry.getValue()){
-                TitleSummary tm = titlesSummary.stream().filter(titleSummmary -> titleSummmary.getTconst().equalsIgnoreCase(entry.getValue())).findFirst().get();
+                TitleSummary tm = titlesSummary.stream().filter(titleSummmary -> titleSummmary.getTconst().equalsIgnoreCase(entry.getValue())).findFirst().orElseThrow();
                 pathItem.setTitle(modelMapper.map(tm, TitleDTO.class));
             }
             paths.add(pathItem); 

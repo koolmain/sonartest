@@ -1,6 +1,5 @@
 package com.lunatech.assessment.imdb.model.summary;
 
-import java.util.List;
 
 public interface TitleSummary {
 
@@ -10,7 +9,7 @@ public interface TitleSummary {
 
     String getOriginalTitle(); 
 
-    boolean isAdult(); 
+    boolean isIsAdult(); 
 
     Integer getStartYear(); 
 

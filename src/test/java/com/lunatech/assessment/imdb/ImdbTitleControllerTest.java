@@ -49,6 +49,16 @@ public class ImdbTitleControllerTest {
 
     @Test
     @WithMockUser(username = "user",roles = {})
+	public void GenreSearchForDramaIgnoreCase() throws Exception {
+		this.mockMvc.perform(get("/title/toprated/genre/drama")).andDo(print()).andExpect(status().isOk())
+        .andExpect(jsonPath("$.length()", equalTo(1)))
+        .andExpect(jsonPath("$.[0].genres", containsString("Drama")))
+        .andExpect(jsonPath("$.[0].tconst", equalTo("tt0119896")))
+        .andExpect(jsonPath("$.[0].primaryTitle", equalTo("Picture Perfect")));
+	}
+
+    @Test
+    @WithMockUser(username = "user",roles = {})
 	public void GenreSearchForPartialWord() throws Exception {
 		this.mockMvc.perform(get("/title/toprated/genre/ama")).andDo(print()).andExpect(status().isOk())
         .andExpect(jsonPath("$.length()", equalTo(1)))
@@ -72,5 +82,33 @@ public class ImdbTitleControllerTest {
 	public void GenreSearchForNotExisting() throws Exception {
 		this.mockMvc.perform(get("/title/toprated/genre/NOTEXISTING")).andDo(print()).andExpect(status().isOk())
         .andExpect(jsonPath("$.length()", equalTo(0)));
+	}
+
+    @Test
+    @WithMockUser(username = "user",roles = {})
+	public void NameSearchForIron() throws Exception {
+		this.mockMvc.perform(get("/title/name/Iron")).andDo(print()).andExpect(status().isOk())
+        .andExpect(jsonPath("$.length()", equalTo(1)))
+        .andExpect(jsonPath("$.[0].titleType",  equalTo("movie")))
+        .andExpect(jsonPath("$.[0].tconst", equalTo("tt0129167")))
+        .andExpect(jsonPath("$.[0].primaryTitle", equalTo("The Iron Giant")));
+	}
+
+    @Test
+    @WithMockUser(username = "user",roles = {})
+	public void NameSearchForPerfect() throws Exception {
+		this.mockMvc.perform(get("/title/name/Iron")).andDo(print()).andExpect(status().isOk())
+        .andExpect(jsonPath("$.length()", equalTo(1)))
+        .andExpect(jsonPath("$.[0].tconst", equalTo("tt0129167")))
+        .andExpect(jsonPath("$.[0].primaryTitle", equalTo("The Iron Giant")));
+	}
+
+    @Test
+    @WithMockUser(username = "user",roles = {})
+	public void NameSearchForPartialPerfect() throws Exception {
+		this.mockMvc.perform(get("/title/name/erfec")).andDo(print()).andExpect(status().isOk())
+        .andExpect(jsonPath("$.length()", equalTo(1)))
+        .andExpect(jsonPath("$.[0].tconst", equalTo("tt0119896")))
+        .andExpect(jsonPath("$.[0].primaryTitle", equalTo("Picture Perfect")));
 	}
 }

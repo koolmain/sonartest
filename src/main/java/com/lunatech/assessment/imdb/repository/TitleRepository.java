@@ -14,7 +14,7 @@ public interface TitleRepository  extends CrudRepository<Title, String > {
     List<Title> findByOriginalTitleOrPrimaryTitleContainingIgnoreCase(String originalTitle,String primaryTitle,Pageable pageable);
 
     @Cacheable("genres")
-    @Query(value="SELECT title from Title title join title.rating where title.genres like %:genre%  order by title.rating.averageRating desc")
+    @Query(value="SELECT title from Title title join title.rating where lower(title.genres) like lower(concat('%', :genre,'%')) order by title.rating.averageRating desc")
     Page<Title> findTopRatedTitleByGenres(String genre, Pageable pageable);
 
     @Query(value = "select title from Title title where title.tconst in :idList")

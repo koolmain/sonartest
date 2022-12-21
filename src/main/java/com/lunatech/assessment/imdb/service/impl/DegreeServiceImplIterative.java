@@ -89,8 +89,7 @@ public class DegreeServiceImplIterative implements DegreeService{
         List<ActorInFilm> pathHistory = new ArrayList<>();
         queue.add(new NameWithDegree(1, sourceActor, pathHistory)); 
         State searchState = new State(0, new ArrayList<>(), new ArrayList<>(), new ArrayList<>()); 
-        DegreeDto path = degreeSearch(searchState, queue, targetActor, sourceActor); 
-        return path; 
+        return degreeSearch(searchState, queue, targetActor, sourceActor); 
     }
 
 

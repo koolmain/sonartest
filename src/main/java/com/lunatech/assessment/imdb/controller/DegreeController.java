@@ -20,8 +20,7 @@ public class DegreeController {
 
     @GetMapping(value = "/{targetActor}/{sourceActor}")
     public DegreeDto getDegreeForAntor(@PathVariable String targetActor, @PathVariable String sourceActor) throws Exception{
-        DegreeDto degree = degreeService.getDegreeOfReachbetweenActors(targetActor, sourceActor);
-        return degree; 
+        return degreeService.getDegreeOfReachbetweenActors(targetActor, sourceActor);
     }
 }
 

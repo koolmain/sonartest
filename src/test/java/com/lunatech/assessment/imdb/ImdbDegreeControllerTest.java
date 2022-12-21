@@ -23,7 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Sql(scripts = {"classpath:schema-h2.sql", } )
 @Sql(scripts = {"/testdata/names.sql", "/testdata/titles.sql","/testdata/crew.sql","/testdata/ratings.sql", "/testdata/principals.sql"} )
 @Transactional
-public class ImdbDegreeControllerTest {
+class ImdbDegreeControllerTest {
 
     @Autowired
     private MockMvc mockMvc; 
@@ -39,7 +39,7 @@ public class ImdbDegreeControllerTest {
     
     @Test
     @WithMockUser(username = "user",roles = {})
-	public void DegreeFetchForVinDiselToKevnBacon() throws Exception {
+	void DegreeFetchForVinDiselToKevnBacon() throws Exception {
 		this.mockMvc.perform(get("/degree/nm0000102/nm0004874")).andDo(print()).andExpect(status().isOk())
         .andExpect(jsonPath("$.baconDegree", equalTo(2)))
         .andExpect(jsonPath("$.path.length()", equalTo(3)))

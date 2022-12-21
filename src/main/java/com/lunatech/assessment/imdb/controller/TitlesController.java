@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lunatech.assessment.imdb.dto.TitleDTO;
-import com.lunatech.assessment.imdb.model.Title;
-import com.lunatech.assessment.imdb.model.summary.TitleSummary;
 import com.lunatech.assessment.imdb.service.TitleService;
 
 @RestController

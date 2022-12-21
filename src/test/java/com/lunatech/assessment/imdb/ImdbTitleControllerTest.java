@@ -23,7 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Sql(scripts = {"classpath:schema-h2.sql", } )
 @Sql(scripts = {"/testdata/names.sql", "/testdata/titles.sql","/testdata/crew.sql","/testdata/ratings.sql", "/testdata/principals.sql"} )
 @Transactional
-public class ImdbTitleControllerTest {
+class ImdbTitleControllerTest {
 
     @Autowired
     private MockMvc mockMvc; 
@@ -39,7 +39,7 @@ public class ImdbTitleControllerTest {
     
     @Test
     @WithMockUser(username = "user",roles = {})
-	public void GenreSearchForDrama() throws Exception {
+	void GenreSearchForDrama() throws Exception {
 		this.mockMvc.perform(get("/title/toprated/genre/Drama")).andDo(print()).andExpect(status().isOk())
         .andExpect(jsonPath("$.length()", equalTo(1)))
         .andExpect(jsonPath("$.[0].genres", containsString("Drama")))
@@ -49,7 +49,7 @@ public class ImdbTitleControllerTest {
 
     @Test
     @WithMockUser(username = "user",roles = {})
-	public void GenreSearchForDramaIgnoreCase() throws Exception {
+	void GenreSearchForDramaIgnoreCase() throws Exception {
 		this.mockMvc.perform(get("/title/toprated/genre/drama")).andDo(print()).andExpect(status().isOk())
         .andExpect(jsonPath("$.length()", equalTo(1)))
         .andExpect(jsonPath("$.[0].genres", containsString("Drama")))
@@ -59,7 +59,7 @@ public class ImdbTitleControllerTest {
 
     @Test
     @WithMockUser(username = "user",roles = {})
-	public void GenreSearchForPartialWord() throws Exception {
+	void GenreSearchForPartialWord() throws Exception {
 		this.mockMvc.perform(get("/title/toprated/genre/ama")).andDo(print()).andExpect(status().isOk())
         .andExpect(jsonPath("$.length()", equalTo(1)))
         .andExpect(jsonPath("$.[0].genres", containsString("Drama")))
@@ -69,7 +69,7 @@ public class ImdbTitleControllerTest {
 
     @Test
     @WithMockUser(username = "user",roles = {})
-	public void GenreSearchForAction() throws Exception {
+	void GenreSearchForAction() throws Exception {
 		this.mockMvc.perform(get("/title/toprated/genre/Action")).andDo(print()).andExpect(status().isOk())
         .andExpect(jsonPath("$.length()", equalTo(1)))
         .andExpect(jsonPath("$.[0].genres", containsString("Action")))
@@ -79,14 +79,14 @@ public class ImdbTitleControllerTest {
 
     @Test
     @WithMockUser(username = "user",roles = {})
-	public void GenreSearchForNotExisting() throws Exception {
+	void GenreSearchForNotExisting() throws Exception {
 		this.mockMvc.perform(get("/title/toprated/genre/NOTEXISTING")).andDo(print()).andExpect(status().isOk())
         .andExpect(jsonPath("$.length()", equalTo(0)));
 	}
 
     @Test
     @WithMockUser(username = "user",roles = {})
-	public void NameSearchForIron() throws Exception {
+	void NameSearchForIron() throws Exception {
 		this.mockMvc.perform(get("/title/name/Iron")).andDo(print()).andExpect(status().isOk())
         .andExpect(jsonPath("$.length()", equalTo(1)))
         .andExpect(jsonPath("$.[0].titleType",  equalTo("movie")))
@@ -96,7 +96,7 @@ public class ImdbTitleControllerTest {
 
     @Test
     @WithMockUser(username = "user",roles = {})
-	public void NameSearchForPerfect() throws Exception {
+	void NameSearchForPerfect() throws Exception {
 		this.mockMvc.perform(get("/title/name/Iron")).andDo(print()).andExpect(status().isOk())
         .andExpect(jsonPath("$.length()", equalTo(1)))
         .andExpect(jsonPath("$.[0].tconst", equalTo("tt0129167")))
@@ -105,7 +105,7 @@ public class ImdbTitleControllerTest {
 
     @Test
     @WithMockUser(username = "user",roles = {})
-	public void NameSearchForPartialPerfect() throws Exception {
+	void NameSearchForPartialPerfect() throws Exception {
 		this.mockMvc.perform(get("/title/name/erfec")).andDo(print()).andExpect(status().isOk())
         .andExpect(jsonPath("$.length()", equalTo(1)))
         .andExpect(jsonPath("$.[0].tconst", equalTo("tt0119896")))

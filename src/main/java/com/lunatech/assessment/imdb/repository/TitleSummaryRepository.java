@@ -11,7 +11,7 @@ import com.lunatech.assessment.imdb.model.summary.TitleSummary;
 
 public interface TitleSummaryRepository  extends CrudRepository<Title, String > {
 
-    // Optional<TitleSummary> findByTconst(String tconst);
+    Optional<TitleSummary> findByTconst(String tconst);
 
     @Query(value = "select title from Title title where title.tconst in :idList")
     List<TitleSummary> getAllTitlesFromIds(List<String> idList); 

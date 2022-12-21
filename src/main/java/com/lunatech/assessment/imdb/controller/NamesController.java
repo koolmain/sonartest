@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lunatech.assessment.imdb.model.Name;
+import com.lunatech.assessment.imdb.model.summary.NameSmmary;
 import com.lunatech.assessment.imdb.service.NameService;
 
 @RestController
@@ -16,10 +17,14 @@ public class NamesController {
     @Autowired
     private NameService nameService; 
 
-    @GetMapping(value = "details/{id}", produces = "application/hal+json")
-    public Name getName(@PathVariable String id){
-        return nameService.getNameById(id).orElseThrow();
+    @GetMapping(value = "summary/{id}", produces = "application/hal+json")
+    public NameSmmary getNameSummary(@PathVariable String id){
+        return nameService.getNameSummaryById(id).orElseThrow();
     }
 
+    @GetMapping(value = "details/{id}", produces = "application/hal+json")
+    public Name getNameDetails(@PathVariable String id){
+        return nameService.getNameById(id).orElseThrow();
+    }
 }
 

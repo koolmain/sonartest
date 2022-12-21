@@ -28,7 +28,7 @@ public class TitleProcessor implements RepresentationModelProcessor<EntityModel<
         TitlesController controller = methodOn(TitlesController.class);
 
         String basePath = configuration.getBasePath().toString(); 
-        model.add(applyBasePath(linkTo(controller.geTitle(model.getContent().getTconst())).withSelfRel(),basePath)); 
+        model.add(applyBasePath(linkTo(controller.geTitleDetails(model.getContent().getTconst())).withSelfRel(),basePath)); 
         return model;
     }
 

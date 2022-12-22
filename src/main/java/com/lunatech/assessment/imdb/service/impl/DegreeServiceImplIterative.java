@@ -91,7 +91,7 @@ public class DegreeServiceImplIterative implements DegreeService{
      * @throws Exception
      */
     @Override
-    public DegreeDto getDegreeOfReachbetweenActors(String targetActor, String sourceActor) throws Exception {
+    public DegreeDto getDegreeOfReachbetweenActors(String targetActor, String sourceActor){
         LinkedList<NameWithDegree> queue = new LinkedList<>(); 
         List<ActorInFilm> pathHistory = new ArrayList<>();
         queue.add(new NameWithDegree(1, sourceActor, pathHistory)); 

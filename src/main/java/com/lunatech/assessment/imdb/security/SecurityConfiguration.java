@@ -29,6 +29,7 @@ public class SecurityConfiguration{
     AuthenticationEntryPoint customAuthenticationEntrypoint; 
     
     @Bean 
+    @SuppressWarnings("java:S6437")
     public InMemoryUserDetailsManager userDetailService(PasswordEncoder passwordEndcoder){
                 
         UserDetails titleUser = User.withUsername(USER_ROLE_TITLE)
@@ -65,6 +66,7 @@ public class SecurityConfiguration{
     }
 
     @Bean
+    @SuppressWarnings("java:S125")
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http.authorizeHttpRequests()
             .requestMatchers(TITLE_URL_PATTERN).hasRole(ROLE_TITLE)

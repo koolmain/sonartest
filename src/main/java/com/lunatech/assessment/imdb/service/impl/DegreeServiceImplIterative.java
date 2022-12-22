@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import com.lunatech.assessment.imdb.constants.ImdbConstants;
+import com.lunatech.assessment.imdb.constants.ImdbI18NConstants;
 import com.lunatech.assessment.imdb.dto.DegreeDto;
 import com.lunatech.assessment.imdb.dto.DegreePathItem;
 import com.lunatech.assessment.imdb.dto.NameDTO;
@@ -203,12 +203,12 @@ public class DegreeServiceImplIterative implements DegreeService{
             pathItem = new DegreePathItem(); 
 
             NameSmmary nm = namesSummary.stream().filter(nameSummmary -> nameSummmary.getNconst().equalsIgnoreCase(entry.getKey())).findFirst()
-                                .orElseThrow(()-> new ImdbNotFoundException(utils.getLocalMessage(ImdbConstants.NAME_NOT_FOUND, entry.getKey())));    
+                                .orElseThrow(()-> new ImdbNotFoundException(utils.getLocalMessage(ImdbI18NConstants.NAME_NOT_FOUND, entry.getKey())));    
             pathItem.setName(modelMapper.map(nm, NameDTO.class));
             
             if(null != entry.getValue()){
                 TitleSummary tm = titlesSummary.stream().filter(titleSummmary -> titleSummmary.getTconst().equalsIgnoreCase(entry.getValue())).findFirst()
-                                .orElseThrow(()-> new ImdbNotFoundException(utils.getLocalMessage(ImdbConstants.TITLE_NOT_FOUND, entry.getValue())));    
+                                .orElseThrow(()-> new ImdbNotFoundException(utils.getLocalMessage(ImdbI18NConstants.TITLE_NOT_FOUND, entry.getValue())));    
                 pathItem.setTitle(modelMapper.map(tm, TitleDTO.class));
             }
             paths.add(pathItem); 

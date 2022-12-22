@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.lunatech.assessment.imdb.constants.ImdbConstants;
+import com.lunatech.assessment.imdb.constants.ImdbI18NConstants;
 import com.lunatech.assessment.imdb.exceptions.ImdbNotFoundException;
 import com.lunatech.assessment.imdb.model.Name;
 import com.lunatech.assessment.imdb.model.summary.NameSmmary;
@@ -28,14 +28,14 @@ public class NamesController {
     @GetMapping(value = "summary/{id}", produces = "application/hal+json")
     public NameSmmary getNameSummary(@PathVariable String id){
         return nameService.getNameSummaryById(id)
-                    .orElseThrow(()-> new ImdbNotFoundException(utils.getLocalMessage(ImdbConstants.NAME_NOT_FOUND, id)));    
+                    .orElseThrow(()-> new ImdbNotFoundException(utils.getLocalMessage(ImdbI18NConstants.NAME_NOT_FOUND, id)));    
 
     }
 
     @GetMapping(value = "details/{id}", produces = "application/hal+json")
     public Name getNameDetails(@PathVariable String id){
         return nameService.getNameById(id)
-                    .orElseThrow(()-> new ImdbNotFoundException(utils.getLocalMessage(ImdbConstants.NAME_NOT_FOUND, id)));    
+                    .orElseThrow(()-> new ImdbNotFoundException(utils.getLocalMessage(ImdbI18NConstants.NAME_NOT_FOUND, id)));    
     }
 }
 

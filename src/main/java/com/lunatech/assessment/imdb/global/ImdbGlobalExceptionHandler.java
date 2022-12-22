@@ -1,9 +1,7 @@
 package com.lunatech.assessment.imdb.global;
 
-import java.util.List;
-
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.AuthenticationException; 
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -16,11 +14,15 @@ import com.lunatech.assessment.imdb.exceptions.ImdbNotFoundException;
 @ControllerAdvice
 public class ImdbGlobalExceptionHandler {
 
-    @ExceptionHandler({AccessDeniedException.class})
+    @ExceptionHandler({AuthenticationException.class})
     @ResponseBody
     ErrorDto handleAuthenticationException(Exception ex, WebRequest req){
         ErrorDto error = new ErrorDto(); 
-        return error; 
+        error.setStatus(HttpStatus.NON_AUTHORITATIVE_INFORMATION);
+        error.setPath(req.getDescription(false));
+        error.setMessage("Authentication Exception");
+        error.setDetail("It could be any Authentication Exceptions");
+        return error;  
     }
 
     @ExceptionHandler({ImdbNotFoundException.class})

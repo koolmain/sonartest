@@ -2,13 +2,10 @@ package com.lunatech.assessment.imdb.config;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeMap;
-import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.lunatech.assessment.imdb.dto.NameDTO;
 import com.lunatech.assessment.imdb.dto.TitleDTO;
-import com.lunatech.assessment.imdb.model.Name;
 import com.lunatech.assessment.imdb.model.Title;
 
 @Configuration
@@ -25,5 +22,5 @@ public class ImdbConfigurations {
 
         return modelMapper; 
     }
-    
+
 }

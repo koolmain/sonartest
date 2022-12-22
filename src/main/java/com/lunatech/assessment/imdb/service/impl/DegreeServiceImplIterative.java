@@ -13,10 +13,13 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+
+import com.lunatech.assessment.imdb.constants.ImdbConstants;
 import com.lunatech.assessment.imdb.dto.DegreeDto;
 import com.lunatech.assessment.imdb.dto.DegreePathItem;
 import com.lunatech.assessment.imdb.dto.NameDTO;
 import com.lunatech.assessment.imdb.dto.TitleDTO;
+import com.lunatech.assessment.imdb.exceptions.ImdbNotFoundException;
 import com.lunatech.assessment.imdb.model.summary.NameSmmary;
 import com.lunatech.assessment.imdb.model.summary.TitleSummary;
 import com.lunatech.assessment.imdb.repository.NamesSummaryRepository;
@@ -24,6 +27,8 @@ import com.lunatech.assessment.imdb.repository.TitleSummaryRepository;
 import com.lunatech.assessment.imdb.service.DegreeService;
 import com.lunatech.assessment.imdb.service.NameService;
 import com.lunatech.assessment.imdb.service.TitleService;
+import com.lunatech.assessment.imdb.util.ImdbUtils;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -74,6 +79,8 @@ public class DegreeServiceImplIterative implements DegreeService{
 
     @Autowired
     private ModelMapper modelMapper; 
+    @Autowired
+    private ImdbUtils utils; 
 
 
     
@@ -195,11 +202,13 @@ public class DegreeServiceImplIterative implements DegreeService{
         for(Map.Entry<String,String> entry : steps.entrySet()){
             pathItem = new DegreePathItem(); 
 
-            NameSmmary nm = namesSummary.stream().filter(nameSummmary -> nameSummmary.getNconst().equalsIgnoreCase(entry.getKey())).findFirst().orElseThrow();
+            NameSmmary nm = namesSummary.stream().filter(nameSummmary -> nameSummmary.getNconst().equalsIgnoreCase(entry.getKey())).findFirst()
+                                .orElseThrow(()-> new ImdbNotFoundException(utils.getLocalMessage(ImdbConstants.NAME_NOT_FOUND, entry.getKey())));    
             pathItem.setName(modelMapper.map(nm, NameDTO.class));
             
             if(null != entry.getValue()){
-                TitleSummary tm = titlesSummary.stream().filter(titleSummmary -> titleSummmary.getTconst().equalsIgnoreCase(entry.getValue())).findFirst().orElseThrow();
+                TitleSummary tm = titlesSummary.stream().filter(titleSummmary -> titleSummmary.getTconst().equalsIgnoreCase(entry.getValue())).findFirst()
+                                .orElseThrow(()-> new ImdbNotFoundException(utils.getLocalMessage(ImdbConstants.TITLE_NOT_FOUND, entry.getValue())));    
                 pathItem.setTitle(modelMapper.map(tm, TitleDTO.class));
             }
             paths.add(pathItem); 

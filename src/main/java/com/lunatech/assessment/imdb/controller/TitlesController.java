@@ -9,19 +9,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lunatech.assessment.imdb.constants.ImdbConstants;
 import com.lunatech.assessment.imdb.dto.TitleDTO;
 import com.lunatech.assessment.imdb.service.TitleService;
+import com.lunatech.assessment.imdb.util.ImdbUtils;
+import com.lunatech.assessment.imdb.exceptions.ImdbNotFoundException;
 
 @RestController
 @RequestMapping("/title")
 public class TitlesController {
 
 @Autowired
-private TitleService titleService; 
+private TitleService titleService;
+@Autowired
+private ImdbUtils utils;
 
-@GetMapping(value="/details/{id}", produces = "application/hal+json")
+@GetMapping(value="/details/{id}" ,produces = "application/hal+json" )
 public TitleDTO geTitleDetails(@PathVariable String id){
-    return titleService.getTitleById(id).orElseThrow();    
+    return titleService.getTitleById(id)
+        .orElseThrow(()-> new ImdbNotFoundException(utils.getLocalMessage(ImdbConstants.TITLE_NOT_FOUND, id)));    
 }
 
 // @GetMapping(value="/summary/{id}", produces = "application/hal+json")

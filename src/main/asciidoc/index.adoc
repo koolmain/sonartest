@@ -1,0 +1,34 @@
+= Lunatech Imdb Copycat [VIRENDRA MISHRA]
+
+This is an example output for a service running at http://localhost:8080:
+
+== namesearch
+.request
+include::{snippets}/namesearch/http-request.adoc[]
+
+.response
+include::{snippets}/namesearch/http-response.adoc[]
+
+== toprated
+.request
+include::{snippets}/toprated/http-request.adoc[]
+
+.response
+include::{snippets}/toprated/http-response.adoc[]
+
+== genre
+.request
+
+include::{snippets}/genre/http-request.adoc[]
+
+.response
+include::{snippets}/genre/http-response.adoc[]
+
+== Six degrees of Kevin Bacon
+.request
+include::{snippets}/degree/http-request.adoc[]
+
+.response
+include::{snippets}/degree/http-response.adoc[]
+
+As you can see the format is very simple, and in fact you always get the same message.

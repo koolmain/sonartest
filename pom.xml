@@ -112,6 +112,11 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
+			<groupId>org.springframework.restdocs</groupId>
+			<artifactId>spring-restdocs-mockmvc</artifactId>
+			<scope>test</scope>
+		</dependency>		
+		<dependency>
 			<groupId>org.modelmapper</groupId>
 			<artifactId>modelmapper</artifactId>
 			<version>3.0.0</version>
@@ -157,6 +162,9 @@
 						<configuration>
 							<backend>html</backend>
 							<doctype>book</doctype>
+							<attributes>
+								<snippets>${project.basedir}/docs/snippets</snippets>
+							</attributes>							
 						</configuration>
 					</execution>
 				</executions>
@@ -180,6 +188,26 @@
 					</excludes>
 				</configuration>
 			</plugin>
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-resources</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.basedir}/docs</outputDirectory>
+							<resources>
+							<resource>
+								<directory>${project.build.directory}/generated-docs</directory>
+							</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+				</plugin>			
 		</plugins>
 	</build>
 

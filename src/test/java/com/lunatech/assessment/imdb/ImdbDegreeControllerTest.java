@@ -4,9 +4,13 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.hamcrest.Matchers.*;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
+
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -19,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@AutoConfigureRestDocs(outputDir = "docs/snippets")
 @ActiveProfiles("test")
 @Sql(scripts = {"classpath:schema-h2.sql", } )
 @Sql(scripts = {"/testdata/names.sql", "/testdata/titles.sql","/testdata/crew.sql","/testdata/ratings.sql", "/testdata/principals.sql"} )
@@ -47,7 +52,8 @@ class ImdbDegreeControllerTest {
         .andExpect(jsonPath("$.path.[0].title.originalTitle", equalTo("The Iron Giant")))
         .andExpect(jsonPath("$.path.[1].name.primaryName", equalTo("Jennifer Aniston")))
         .andExpect(jsonPath("$.path.[1].title.originalTitle", equalTo("Picture Perfect")))
-        .andExpect(jsonPath("$.path.[2].name.primaryName", equalTo("Kevin Bacon")));
+        .andExpect(jsonPath("$.path.[2].name.primaryName", equalTo("Kevin Bacon")))
+        .andDo(document("degree",preprocessRequest(modifyHeaders().remove("Host")), preprocessResponse(prettyPrint())));
 	}
 
     @Test
@@ -58,14 +64,15 @@ class ImdbDegreeControllerTest {
         .andExpect(jsonPath("$.path.length()", equalTo(2)))
         .andExpect(jsonPath("$.path.[0].name.primaryName", equalTo("Jay Mohr")))
         .andExpect(jsonPath("$.path.[0].title.originalTitle", equalTo("Picture Perfect")))
-        .andExpect(jsonPath("$.path.[1].name.primaryName", equalTo("Kevin Bacon"))); 
+        .andExpect(jsonPath("$.path.[1].name.primaryName", equalTo("Kevin Bacon")))
+        .andDo(document("degree",preprocessRequest(modifyHeaders().remove("Host")), preprocessResponse(prettyPrint())));
 	}
 
     @Test
     @WithMockUser(username = "user",roles = {})
 	void DegreeFetchForJayMohrToKevnBaconWithNoRole() throws Exception {
 		this.mockMvc.perform(get("/degree/nm0000102/nm0001542")).andDo(print())
-        .andExpect(status().is4xxClientError()); 
+        .andExpect(status().is4xxClientError());
 
 	}
 

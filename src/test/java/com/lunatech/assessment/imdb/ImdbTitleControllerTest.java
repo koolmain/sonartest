@@ -38,7 +38,7 @@ class ImdbTitleControllerTest {
 	}
     
     @Test
-    @WithMockUser(username = "user",roles = {})
+    @WithMockUser(username = "user",roles = {"TITLE"})
 	void GenreSearchForDrama() throws Exception {
 		this.mockMvc.perform(get("/title/toprated/genre/Drama")).andDo(print()).andExpect(status().isOk())
         .andExpect(jsonPath("$.length()", equalTo(1)))
@@ -48,7 +48,7 @@ class ImdbTitleControllerTest {
 	}
 
     @Test
-    @WithMockUser(username = "user",roles = {})
+    @WithMockUser(username = "user",roles = {"TITLE"})
 	void GenreSearchForDramaIgnoreCase() throws Exception {
 		this.mockMvc.perform(get("/title/toprated/genre/drama")).andDo(print()).andExpect(status().isOk())
         .andExpect(jsonPath("$.length()", equalTo(1)))
@@ -58,7 +58,7 @@ class ImdbTitleControllerTest {
 	}
 
     @Test
-    @WithMockUser(username = "user",roles = {})
+    @WithMockUser(username = "user",roles = {"TITLE"})
 	void GenreSearchForPartialWord() throws Exception {
 		this.mockMvc.perform(get("/title/toprated/genre/ama")).andDo(print()).andExpect(status().isOk())
         .andExpect(jsonPath("$.length()", equalTo(1)))
@@ -68,7 +68,7 @@ class ImdbTitleControllerTest {
 	}
 
     @Test
-    @WithMockUser(username = "user",roles = {})
+    @WithMockUser(username = "user",roles = {"TITLE"})
 	void GenreSearchForAction() throws Exception {
 		this.mockMvc.perform(get("/title/toprated/genre/Action")).andDo(print()).andExpect(status().isOk())
         .andExpect(jsonPath("$.length()", equalTo(1)))
@@ -78,7 +78,7 @@ class ImdbTitleControllerTest {
 	}
 
     @Test
-    @WithMockUser(username = "user",roles = {})
+    @WithMockUser(username = "user",roles = {"TITLE"})
 	void GenreSearchForNotExisting() throws Exception {
 		this.mockMvc.perform(get("/title/toprated/genre/NOTEXISTING")).andDo(print()).andExpect(status().isOk())
         .andExpect(jsonPath("$.length()", equalTo(0)));
@@ -86,6 +86,14 @@ class ImdbTitleControllerTest {
 
     @Test
     @WithMockUser(username = "user",roles = {})
+	void GenreSearchForDramaWithNoRole() throws Exception {
+		this.mockMvc.perform(get("/title/toprated/genre/Drama")).andDo(print())
+            .andExpect(status().is4xxClientError());
+
+	}
+
+    @Test
+    @WithMockUser(username = "user",roles = {"TITLE"})
 	void NameSearchForIron() throws Exception {
 		this.mockMvc.perform(get("/title/name/Iron")).andDo(print()).andExpect(status().isOk())
         .andExpect(jsonPath("$.length()", equalTo(1)))
@@ -95,7 +103,7 @@ class ImdbTitleControllerTest {
 	}
 
     @Test
-    @WithMockUser(username = "user",roles = {})
+    @WithMockUser(username = "user",roles = {"TITLE"})
 	void NameSearchForPerfect() throws Exception {
 		this.mockMvc.perform(get("/title/name/Iron")).andDo(print()).andExpect(status().isOk())
         .andExpect(jsonPath("$.length()", equalTo(1)))
@@ -104,11 +112,19 @@ class ImdbTitleControllerTest {
 	}
 
     @Test
-    @WithMockUser(username = "user",roles = {})
+    @WithMockUser(username = "user",roles = {"TITLE"})
 	void NameSearchForPartialPerfect() throws Exception {
 		this.mockMvc.perform(get("/title/name/erfec")).andDo(print()).andExpect(status().isOk())
         .andExpect(jsonPath("$.length()", equalTo(1)))
         .andExpect(jsonPath("$.[0].tconst", equalTo("tt0119896")))
         .andExpect(jsonPath("$.[0].primaryTitle", equalTo("Picture Perfect")));
 	}
+
+    @Test
+    @WithMockUser(username = "user",roles = {})
+	void NameSearchForIronWithNoRole() throws Exception {
+		this.mockMvc.perform(get("/title/name/Iron")).andDo(print())
+            .andExpect(status().is4xxClientError());
+	}
+
 }

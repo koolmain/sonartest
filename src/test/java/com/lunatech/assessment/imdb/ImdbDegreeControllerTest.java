@@ -38,7 +38,7 @@ class ImdbDegreeControllerTest {
 	}
     
     @Test
-    @WithMockUser(username = "user",roles = {})
+    @WithMockUser(username = "user",roles = {"DEGREE"})
 	void DegreeFetchForVinDiselToKevnBacon() throws Exception {
 		this.mockMvc.perform(get("/degree/nm0000102/nm0004874")).andDo(print()).andExpect(status().isOk())
         .andExpect(jsonPath("$.baconDegree", equalTo(2)))
@@ -49,5 +49,26 @@ class ImdbDegreeControllerTest {
         .andExpect(jsonPath("$.path.[1].title.originalTitle", equalTo("Picture Perfect")))
         .andExpect(jsonPath("$.path.[2].name.primaryName", equalTo("Kevin Bacon")));
 	}
+
+    @Test
+    @WithMockUser(username = "user",roles = {"DEGREE"})
+	void DegreeFetchForJayMohrToKevnBacon() throws Exception {
+		this.mockMvc.perform(get("/degree/nm0000102/nm0001542")).andDo(print()).andExpect(status().isOk())
+        .andExpect(jsonPath("$.baconDegree", equalTo(1)))
+        .andExpect(jsonPath("$.path.length()", equalTo(2)))
+        .andExpect(jsonPath("$.path.[0].name.primaryName", equalTo("Jay Mohr")))
+        .andExpect(jsonPath("$.path.[0].title.originalTitle", equalTo("Picture Perfect")))
+        .andExpect(jsonPath("$.path.[1].name.primaryName", equalTo("Kevin Bacon"))); 
+	}
+
+    @Test
+    @WithMockUser(username = "user",roles = {})
+	void DegreeFetchForJayMohrToKevnBaconWithNoRole() throws Exception {
+		this.mockMvc.perform(get("/degree/nm0000102/nm0001542")).andDo(print())
+        .andExpect(status().is4xxClientError()); 
+
+	}
+
+
 
 }

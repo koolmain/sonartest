@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 @AllArgsConstructor
 public class ImdbNotFoundException extends RuntimeException{
     final String errorMessage; 
+    
+    @SuppressWarnings("java:S1488")
     String detailMessage; 
 
 }

@@ -94,6 +94,9 @@ public class DegreeServiceImplIterative implements DegreeService{
     public DegreeDto getDegreeOfReachbetweenActors(String targetActor, String sourceActor){
         LinkedList<NameWithDegree> queue = new LinkedList<>(); 
         List<ActorInFilm> pathHistory = new ArrayList<>();
+        //Validating whether targetActor exist. SourceActor will be verified when processing start with sourceActor
+        nameService.getNameById(targetActor)
+                    .orElseThrow(()-> new ImdbNotFoundException(utils.getLocalMessage(ImdbI18NConstants.NAME_NOT_FOUND, targetActor)));
         queue.add(new NameWithDegree(1, sourceActor, pathHistory)); 
         State searchState = new State(0, new ArrayList<>(), new ArrayList<>(), new ArrayList<>()); 
         return degreeSearch(searchState, queue, targetActor, sourceActor); 
@@ -222,7 +225,9 @@ public class DegreeServiceImplIterative implements DegreeService{
      * @return Set<ActorInFilm>
      */
     private Set<ActorInFilm> getLinkedNameIds(String title){
-        return titleService.getTitleWithPrincipalsById(title).orElseThrow().getPrincipalsList().stream().map(principal ->  new ActorInFilm(principal.getId().getNconstId(), title)).collect(Collectors.toSet());
+        return titleService.getTitleWithPrincipalsById(title)
+                    .orElseThrow(()-> new ImdbNotFoundException(utils.getLocalMessage(ImdbI18NConstants.TITLE_NOT_FOUND, title)))
+                    .getPrincipalsList().stream().map(principal ->  new ActorInFilm(principal.getId().getNconstId(), title)).collect(Collectors.toSet());
     }
     
     /** 
@@ -230,7 +235,9 @@ public class DegreeServiceImplIterative implements DegreeService{
      * @return Set<String>
      */
     private Set<String> getLinkedTitleIds(String name){
-        return nameService.getNameById(name).orElseThrow().getPrincipalsList().stream().map(principal -> principal.getId().getTconstId()).collect(Collectors.toSet());
+        return nameService.getNameById(name)
+                    .orElseThrow(()-> new ImdbNotFoundException(utils.getLocalMessage(ImdbI18NConstants.NAME_NOT_FOUND, name)))
+                    .getPrincipalsList().stream().map(principal -> principal.getId().getTconstId()).collect(Collectors.toSet());
     }
     
 }

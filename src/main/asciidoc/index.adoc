@@ -1,0 +1,111 @@
+= Lunatech Imdb Copycat [VIRENDRA MISHRA]
+
+This is an example output for a service running at http://localhost:8080:
+
+== Namesearch
+
+****
+*Search for 'Iron' Title with role 'TITLE'*
+****
+
+.Request
+include::{snippets}/namesearchIron/http-request.adoc[]
+
+.Response
+include::{snippets}/namesearchIron/http-response.adoc[]
+
+****
+*Search for 'erfec' Title which is actually 'Partial Perfect' title with role 'TITLE'*
+****
+.Request
+include::{snippets}/namesearchPartial/http-request.adoc[]
+
+.Response
+include::{snippets}/namesearchPartial/http-response.adoc[]
+
+****
+*Search for 'Iron' Title but it doesn't contain the 'TITLE' role*
+****
+.Request
+include::{snippets}/namesearchWithoutRole/http-request.adoc[]
+
+.Response
+include::{snippets}/namesearchWithoutRole/http-response.adoc[]
+
+
+== Toprated / Genre
+
+****
+*Search for top rated 'Drama' genre titles with role 'TITLE'*
+****
+
+.Request
+include::{snippets}/toprated/http-request.adoc[]
+
+.Response
+include::{snippets}/toprated/http-response.adoc[]
+
+
+****
+*Search for top rated 'drama' genre titles which is case insentive of 'Drama' with role 'TITLE'*
+****
+
+.Request
+include::{snippets}/topratedIgnorecase/http-request.adoc[]
+
+.Response
+include::{snippets}/topratedIgnorecase/http-response.adoc[]
+
+****
+*Search for top rated partial 'ama' genre titles which is partial word of genre 'Drama' with role 'TITLE'*
+****
+
+.Request
+include::{snippets}/topratedPartial/http-request.adoc[]
+
+.Response
+include::{snippets}/topratedPartial/http-response.adoc[]
+
+****
+*Search for top rated partial genre titles which doesn't exist*
+****
+.Request
+include::{snippets}/topratedNotExisting/http-request.adoc[]
+
+.Response
+include::{snippets}/topratedNotExisting/http-response.adoc[]
+
+== Six degrees of Kevin Bacon
+
+****
+*Getting 'six desgree of Kevin Bacon' for actor 'Jay Mohr' with role 'DEGREE'*
+****
+
+.Request
+include::{snippets}/degreeJayMohr/http-request.adoc[]
+
+.Response
+include::{snippets}/degreeJayMohr/http-response.adoc[]
+
+
+****
+*Getting 'six desgree of Kevin Bacon' for actor 'Vin Disel' with role 'DEGREE'*
+****
+
+.Request
+include::{snippets}/degreeVinDisel/http-request.adoc[]
+
+.Response
+include::{snippets}/degreeVinDisel/http-response.adoc[]
+
+****
+*Getting 'six desgree of Kevin Bacon' for actor 'Vin Disel' but doesn't contain required role 'DEGREE'*
+****
+
+.Request
+include::{snippets}/degreeWithoutRole/http-request.adoc[]
+
+.Response
+include::{snippets}/degreeWithoutRole/http-response.adoc[]
+
+

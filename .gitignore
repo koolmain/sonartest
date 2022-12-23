@@ -1,6 +1,7 @@
 # Compiled class file
 *.class
 target/
+docs/snippets/**/*.adoc
 .metals
 .bloop
 # Log file

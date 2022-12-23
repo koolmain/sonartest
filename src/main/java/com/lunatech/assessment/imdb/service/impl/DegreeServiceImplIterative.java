@@ -12,11 +12,15 @@ import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+
+import com.lunatech.assessment.imdb.constants.ImdbI18NConstants;
 import com.lunatech.assessment.imdb.dto.DegreeDto;
 import com.lunatech.assessment.imdb.dto.DegreePathItem;
 import com.lunatech.assessment.imdb.dto.NameDTO;
 import com.lunatech.assessment.imdb.dto.TitleDTO;
+import com.lunatech.assessment.imdb.exceptions.ImdbNotFoundException;
 import com.lunatech.assessment.imdb.model.summary.NameSmmary;
 import com.lunatech.assessment.imdb.model.summary.TitleSummary;
 import com.lunatech.assessment.imdb.repository.NamesSummaryRepository;
@@ -24,6 +28,8 @@ import com.lunatech.assessment.imdb.repository.TitleSummaryRepository;
 import com.lunatech.assessment.imdb.service.DegreeService;
 import com.lunatech.assessment.imdb.service.NameService;
 import com.lunatech.assessment.imdb.service.TitleService;
+import com.lunatech.assessment.imdb.util.ImdbUtils;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -74,19 +80,28 @@ public class DegreeServiceImplIterative implements DegreeService{
 
     @Autowired
     private ModelMapper modelMapper; 
+    @Autowired
+    private ImdbUtils utils; 
 
 
     
     /** 
+     * Get degree between sourceActor and tagetActor. It also provide the path between source and target. 
+     *  
      * @param targetActor
      * @param sourceActor
      * @return int
      * @throws Exception
      */
+    @Cacheable("degreePath")
+    @SuppressWarnings("java:S2201")
     @Override
-    public DegreeDto getDegreeOfReachbetweenActors(String targetActor, String sourceActor) throws Exception {
+    public DegreeDto getDegreeOfReachbetweenActors(String targetActor, String sourceActor){
         LinkedList<NameWithDegree> queue = new LinkedList<>(); 
         List<ActorInFilm> pathHistory = new ArrayList<>();
+        //Validating whether targetActor exist. SourceActor will be verified when processing start with sourceActor
+        nameService.getNameById(targetActor)
+                    .orElseThrow(()-> new ImdbNotFoundException(utils.getLocalMessage(ImdbI18NConstants.NAME_NOT_FOUND, targetActor)));
         queue.add(new NameWithDegree(1, sourceActor, pathHistory)); 
         State searchState = new State(0, new ArrayList<>(), new ArrayList<>(), new ArrayList<>()); 
         return degreeSearch(searchState, queue, targetActor, sourceActor); 
@@ -95,6 +110,16 @@ public class DegreeServiceImplIterative implements DegreeService{
 
     
     /** 
+     * This function uses below algorithm to fetch "degree of reach" between source and target actor. 
+     * 
+     * 1. start from source actor 
+     * 2. fetchs all linked titles (all titles this actor was part of)
+     * 3. For each title (removing already visited titles from state), fetch all linked names (actors) (removing already visited name from state) and collect all linked names for all titles. 
+     * 4. This is called One Degree (One Step). 
+     * 5. Check whether target actor is in above fetched linked names list. 
+     * 6. If it exist then current degree is returned with detailed path
+     * 7. Otherwise, Add one degree to current degree and repeat from step 2 until target actor is found or all title and names are consumed. 
+     * 
      * @param state
      * @param queue
      * @param targetName
@@ -135,7 +160,6 @@ public class DegreeServiceImplIterative implements DegreeService{
 
             //adding current degree plus One with all linked name to be seached later from queue. 
             queue.addAll(linkedNames.stream()
-                              //  .filter(Predicate.not(state.getVisitedNames()::contains))
                                 .filter(nameNmovie ->  !state.getVisitedNames().contains(nameNmovie.getName()))
                                 .filter(Objects::nonNull)
                                 .map(linkedName -> {
@@ -150,31 +174,89 @@ public class DegreeServiceImplIterative implements DegreeService{
             break; 
         }
     }
+        return getpath(state, sourceName, secondLastElement); 
+    }
+
+
+
+    private DegreeDto getpath(State state, String sourceName, NameWithDegree secondLastElement) {
         state.setCurrentDegree(secondLastElement.getDegree());
         List<String> titleIds = new ArrayList<>();
         List<String> nameIds = new ArrayList<>();
         nameIds.add(sourceName);
-        state.setPath(secondLastElement.getPath()
-                        .stream()
+        secondLastElement.getPath().stream()
                         .map(actionInFilm -> {
                                 titleIds.add(actionInFilm.getMovie());
                                 nameIds.add(actionInFilm.getName()); 
-                                return new StringBuilder()
-                                    .append(actionInFilm.getMovie())
-                                    .append("-->")
-                                    .append(actionInFilm.getName())
-                                    .toString();
-                        })
-                        .toList());
+                                return null; 
+                        }).toList();
 
-        return getDetailPath(secondLastElement.getDegree(), nameIds,titleIds); 
+        return getDetailedPath(secondLastElement.getDegree(), nameIds,titleIds);
     }
 
-    private DegreeDto getDetailPath(int degree, List<String> names, List<String> titles){
+    
+    /** 
+     * Get detailed path from nameIds list and titleIds list. 
+     * 
+     * @param degree
+     * @param names
+     * @param titles
+     * @return DegreeDto
+     */
+    private DegreeDto getDetailedPath(int degree, List<String> names, List<String> titles){
         DegreeDto dto = new DegreeDto(); 
         dto.setBaconDegree(degree);
 
         //storing name --> move each step in map entry and map represent the full path
+        Map<String, String> steps = createNameAndTitleMap(names, titles);
+
+        List<NameSmmary> namesSummary = namesSummaryRepository.getAllNamesFromIds(names); 
+        List<TitleSummary> titlesSummary = titleSummaryRepository.getAllTitlesFromIds(titles);
+
+        //fetching details path from from ids 
+        List<DegreePathItem> paths = createFullPath(steps, namesSummary, titlesSummary);
+        dto.setPath(paths);
+        return dto; 
+    }
+
+    
+    /** 
+     * Create full path from NameTitleMap and nameSummaryList and titleSummaryList. 
+     * 
+     * @param steps
+     * @param namesSummary
+     * @param titlesSummary
+     * @return List<DegreePathItem>
+     */
+    private List<DegreePathItem> createFullPath(Map<String, String> steps, List<NameSmmary> namesSummary, List<TitleSummary> titlesSummary) {
+        DegreePathItem pathItem;
+        List<DegreePathItem> paths = new ArrayList<>(); 
+        for(Map.Entry<String,String> entry : steps.entrySet()){
+            pathItem = new DegreePathItem(); 
+
+            NameSmmary nm = namesSummary.stream().filter(nameSummmary -> nameSummmary.getNconst().equalsIgnoreCase(entry.getKey())).findFirst()
+                                .orElseThrow(()-> new ImdbNotFoundException(utils.getLocalMessage(ImdbI18NConstants.NAME_NOT_FOUND, entry.getKey())));    
+            pathItem.setName(modelMapper.map(nm, NameDTO.class));
+            
+            if(null != entry.getValue()){
+                TitleSummary tm = titlesSummary.stream().filter(titleSummmary -> titleSummmary.getTconst().equalsIgnoreCase(entry.getValue())).findFirst()
+                                .orElseThrow(()-> new ImdbNotFoundException(utils.getLocalMessage(ImdbI18NConstants.TITLE_NOT_FOUND, entry.getValue())));    
+                pathItem.setTitle(modelMapper.map(tm, TitleDTO.class));
+            }
+            paths.add(pathItem); 
+        }
+
+        return paths; 
+    }
+    
+    /** 
+     * Create name and title map from nameIdsList and titleIdsList. 
+     * 
+     * @param names
+     * @param titles
+     * @return Map<String, String>
+     */
+    private Map<String, String> createNameAndTitleMap(List<String> names, List<String> titles) {
         Map<String,String> steps = new LinkedHashMap<>(); 
         int nameSize = names.size(); 
         for(int i= 0; i< nameSize; i++ ){
@@ -184,44 +266,31 @@ public class DegreeServiceImplIterative implements DegreeService{
                 steps.put(names.get(i), null); 
             }
         }
-
-        List<NameSmmary> namesSummary = namesSummaryRepository.getAllNamesFromIds(names); 
-        List<TitleSummary> titlesSummary = titleSummaryRepository.getAllTitlesFromIds(titles);
-        
-        DegreePathItem pathItem; 
-        List<DegreePathItem> paths = new ArrayList<>(); 
-
-        //fetching details path from from ids 
-        for(Map.Entry<String,String> entry : steps.entrySet()){
-            pathItem = new DegreePathItem(); 
-
-            NameSmmary nm = namesSummary.stream().filter(nameSummmary -> nameSummmary.getNconst().equalsIgnoreCase(entry.getKey())).findFirst().orElseThrow();
-            pathItem.setName(modelMapper.map(nm, NameDTO.class));
-            
-            if(null != entry.getValue()){
-                TitleSummary tm = titlesSummary.stream().filter(titleSummmary -> titleSummmary.getTconst().equalsIgnoreCase(entry.getValue())).findFirst().orElseThrow();
-                pathItem.setTitle(modelMapper.map(tm, TitleDTO.class));
-            }
-            paths.add(pathItem); 
-        }
-        dto.setPath(paths);
-        return dto; 
+        return steps; 
     }
 
     /** 
+     * Get all linked names from given 'title'.
+     * 
      * @param title
      * @return Set<ActorInFilm>
      */
     private Set<ActorInFilm> getLinkedNameIds(String title){
-        return titleService.getTitleWithPrincipalsById(title).orElseThrow().getPrincipalsList().stream().map(principal ->  new ActorInFilm(principal.getId().getNconstId(), title)).collect(Collectors.toSet());
+        return titleService.getTitleWithPrincipalsById(title)
+                    .orElseThrow(()-> new ImdbNotFoundException(utils.getLocalMessage(ImdbI18NConstants.TITLE_NOT_FOUND, title)))
+                    .getPrincipalsList().stream().map(principal ->  new ActorInFilm(principal.getId().getNconstId(), title)).collect(Collectors.toSet());
     }
     
     /** 
+     * Get all linked titles from given 'name'.
+     * 
      * @param name
      * @return Set<String>
      */
     private Set<String> getLinkedTitleIds(String name){
-        return nameService.getNameById(name).orElseThrow().getPrincipalsList().stream().map(principal -> principal.getId().getTconstId()).collect(Collectors.toSet());
+        return nameService.getNameById(name)
+                    .orElseThrow(()-> new ImdbNotFoundException(utils.getLocalMessage(ImdbI18NConstants.NAME_NOT_FOUND, name)))
+                    .getPrincipalsList().stream().map(principal -> principal.getId().getTconstId()).collect(Collectors.toSet());
     }
     
 }

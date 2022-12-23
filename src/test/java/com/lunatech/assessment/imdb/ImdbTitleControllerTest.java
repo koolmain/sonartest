@@ -90,7 +90,7 @@ class ImdbTitleControllerTest {
 	void GenreSearchForNotExisting() throws Exception {
 		this.mockMvc.perform(get("/title/toprated/genre/NOTEXISTING")).andDo(print()).andExpect(status().isOk())
         .andExpect(jsonPath("$.length()", equalTo(0)))
-        .andDo(document("topratedNotExisting"));
+        .andDo(document("topratedNotExisting",preprocessRequest(modifyHeaders().remove("Host").add("Role", "TITLE")), preprocessResponse(prettyPrint())));
 	}
 
     @Test
@@ -110,7 +110,7 @@ class ImdbTitleControllerTest {
         .andExpect(jsonPath("$.[0].titleType",  equalTo("movie")))
         .andExpect(jsonPath("$.[0].tconst", equalTo("tt0129167")))
         .andExpect(jsonPath("$.[0].primaryTitle", equalTo("The Iron Giant")))
-        .andDo(document("namesearchIron"));
+        .andDo(document("namesearchIron",preprocessRequest(modifyHeaders().remove("Host").add("Role", "TITLE")), preprocessResponse(prettyPrint())));
 	}
 
     @Test
@@ -120,7 +120,7 @@ class ImdbTitleControllerTest {
         .andExpect(jsonPath("$.length()", equalTo(1)))
         .andExpect(jsonPath("$.[0].tconst", equalTo("tt0119896")))
         .andExpect(jsonPath("$.[0].primaryTitle", equalTo("Picture Perfect")))
-        .andDo(document("namesearchPartial",preprocessRequest(modifyHeaders().remove("Host")), preprocessResponse(prettyPrint())));
+        .andDo(document("namesearchPartial",preprocessRequest(modifyHeaders().remove("Host").add("Role", "TITLE")), preprocessResponse(prettyPrint())));
 	}
 
     @Test

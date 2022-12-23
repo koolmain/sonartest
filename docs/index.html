@@ -443,16 +443,24 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect1">
-<h2 id="_namesearch">namesearch</h2>
+<h2 id="_namesearch">Namesearch</h2>
 <div class="sectionbody">
-<div class="listingblock">
-<div class="title">request</div>
+<div class="sidebarblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-http" data-lang="http">GET /title/name/erfec HTTP/1.1</code></pre>
+<div class="paragraph">
+<p><strong>Search for 'Iron' Title with role 'TITLE'</strong></p>
+</div>
 </div>
 </div>
 <div class="listingblock">
-<div class="title">response</div>
+<div class="title">Request</div>
+<div class="content">
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">GET /title/name/Iron HTTP/1.1
+Role: TITLE</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Response</div>
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/hal+json
@@ -462,7 +470,72 @@ Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
 X-Frame-Options: DENY
-Content-Length: 1238
+Content-Length: 971
+
+[ {
+  "tconst" : "tt0129167",
+  "titleType" : "movie",
+  "primaryTitle" : "The Iron Giant",
+  "originalTitle" : "The Iron Giant",
+  "startYear" : 1999,
+  "endYear" : 0,
+  "runTimeMinutes" : 86,
+  "averageRating" : 8,
+  "numVotes" : 0,
+  "directors" : "nm0083348",
+  "writes" : "nm0083348",
+  "genres" : "Action,Adventure,Animation",
+  "names" : [ {
+    "nconst" : "nm0547349",
+    "primaryName" : "Eli Marienthal",
+    "birthYear" : "1986",
+    "primaryProfession" : "actor"
+  }, {
+    "nconst" : "nm0000098",
+    "primaryName" : "Jennifer Aniston",
+    "birthYear" : "1969",
+    "primaryProfession" : "actress,producer,soundtrack"
+  }, {
+    "nconst" : "nm0004874",
+    "primaryName" : "Vin Diesel",
+    "birthYear" : "1967",
+    "primaryProfession" : "producer,actor,director"
+  }, {
+    "nconst" : "nm0083348",
+    "primaryName" : "Brad Bird",
+    "birthYear" : "1957",
+    "primaryProfession" : "miscellaneous,writer,animation_department"
+  } ],
+  "adult" : false
+} ]</code></pre>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Search for 'erfec' Title which is actually 'Partial Perfect' title with role 'TITLE'</strong></p>
+</div>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Request</div>
+<div class="content">
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">GET /title/name/erfec HTTP/1.1
+Role: TITLE</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Response</div>
+<div class="content">
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/hal+json
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 0
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+X-Frame-Options: DENY
+Content-Length: 1118
 
 [ {
   "tconst" : "tt0119896",
@@ -481,79 +554,48 @@ Content-Length: 1238
     "nconst" : "nm0000098",
     "primaryName" : "Jennifer Aniston",
     "birthYear" : "1969",
-    "deathYear" : null,
     "primaryProfession" : "actress,producer,soundtrack"
   }, {
     "nconst" : "nm0001542",
     "primaryName" : "Jay Mohr",
     "birthYear" : "1970",
-    "deathYear" : null,
     "primaryProfession" : "actor,writer,producer"
   }, {
     "nconst" : "nm0000102",
     "primaryName" : "Kevin Bacon",
     "birthYear" : "1958",
-    "deathYear" : null,
     "primaryProfession" : "actor,producer,soundtrack"
   }, {
     "nconst" : "nm0001156",
     "primaryName" : "Olympia Dukakis",
     "birthYear" : "1931",
-    "deathYear" : null,
     "primaryProfession" : "actress,producer"
   }, {
     "nconst" : "nm0139111",
     "primaryName" : "Glenn Gordon Caron",
     "birthYear" : "1954",
-    "deathYear" : null,
     "primaryProfession" : "writer,producer,director"
   } ],
   "adult" : false
 } ]</code></pre>
 </div>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_toprated">toprated</h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="title">request</div>
+<div class="sidebarblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-http" data-lang="http">GET /title/toprated/genre/Action HTTP/1.1
+<div class="paragraph">
+<p><strong>Search for 'Iron' Title but it doesn&#8217;t contain the 'TITLE' role</strong></p>
+</div>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Request</div>
+<div class="content">
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">GET /title/name/Iron HTTP/1.1
 Host: localhost:8080</code></pre>
 </div>
 </div>
 <div class="listingblock">
-<div class="title">response</div>
-<div class="content">
-<pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
-Content-Type: application/hal+json
-X-Content-Type-Options: nosniff
-X-XSS-Protection: 0
-Cache-Control: no-cache, no-store, max-age=0, must-revalidate
-Pragma: no-cache
-Expires: 0
-X-Frame-Options: DENY
-Content-Length: 837
-
-[{"tconst":"tt0129167","titleType":"movie","primaryTitle":"The Iron Giant","originalTitle":"The Iron Giant","startYear":1999,"endYear":0,"runTimeMinutes":86,"averageRating":8,"numVotes":0,"directors":"nm0083348","writes":"nm0083348","genres":"Action,Adventure,Animation","names":[{"nconst":"nm0547349","primaryName":"Eli Marienthal","birthYear":"1986","deathYear":null,"primaryProfession":"actor"},{"nconst":"nm0000098","primaryName":"Jennifer Aniston","birthYear":"1969","deathYear":null,"primaryProfession":"actress,producer,soundtrack"},{"nconst":"nm0004874","primaryName":"Vin Diesel","birthYear":"1967","deathYear":null,"primaryProfession":"producer,actor,director"},{"nconst":"nm0083348","primaryName":"Brad Bird","birthYear":"1957","deathYear":null,"primaryProfession":"miscellaneous,writer,animation_department"}],"adult":false}]</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_genre">genre</h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="title">request</div>
-<div class="content">
-<pre class="highlight nowrap"><code class="language-http" data-lang="http">GET /title/toprated/genre/Drama HTTP/1.1
-Host: localhost:8080</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">response</div>
+<div class="title">Response</div>
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 403 Forbidden
 X-Content-Type-Options: nosniff
@@ -567,16 +609,269 @@ X-Frame-Options: DENY</code></pre>
 </div>
 </div>
 <div class="sect1">
+<h2 id="_toprated_genre">Toprated / Genre</h2>
+<div class="sectionbody">
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Search for top rated 'Drama' genre titles with role 'TITLE'</strong></p>
+</div>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Request</div>
+<div class="content">
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">GET /title/toprated/genre/Drama HTTP/1.1
+Role: TITLE</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Response</div>
+<div class="content">
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/hal+json
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 0
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+X-Frame-Options: DENY
+Content-Length: 1118
+
+[ {
+  "tconst" : "tt0119896",
+  "titleType" : "movie",
+  "primaryTitle" : "Picture Perfect",
+  "originalTitle" : "Picture Perfect",
+  "startYear" : 1997,
+  "endYear" : 0,
+  "runTimeMinutes" : 101,
+  "averageRating" : 5,
+  "numVotes" : 0,
+  "directors" : "nm0139111",
+  "writes" : "nm0139111",
+  "genres" : "Comedy,Drama,Romance",
+  "names" : [ {
+    "nconst" : "nm0000098",
+    "primaryName" : "Jennifer Aniston",
+    "birthYear" : "1969",
+    "primaryProfession" : "actress,producer,soundtrack"
+  }, {
+    "nconst" : "nm0001542",
+    "primaryName" : "Jay Mohr",
+    "birthYear" : "1970",
+    "primaryProfession" : "actor,writer,producer"
+  }, {
+    "nconst" : "nm0000102",
+    "primaryName" : "Kevin Bacon",
+    "birthYear" : "1958",
+    "primaryProfession" : "actor,producer,soundtrack"
+  }, {
+    "nconst" : "nm0001156",
+    "primaryName" : "Olympia Dukakis",
+    "birthYear" : "1931",
+    "primaryProfession" : "actress,producer"
+  }, {
+    "nconst" : "nm0139111",
+    "primaryName" : "Glenn Gordon Caron",
+    "birthYear" : "1954",
+    "primaryProfession" : "writer,producer,director"
+  } ],
+  "adult" : false
+} ]</code></pre>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Search for top rated 'drama' genre titles which is case insentive of 'Drama' with role 'TITLE'</strong></p>
+</div>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Request</div>
+<div class="content">
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">GET /title/toprated/genre/drama HTTP/1.1
+Role: TITLE</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Response</div>
+<div class="content">
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/hal+json
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 0
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+X-Frame-Options: DENY
+Content-Length: 1118
+
+[ {
+  "tconst" : "tt0119896",
+  "titleType" : "movie",
+  "primaryTitle" : "Picture Perfect",
+  "originalTitle" : "Picture Perfect",
+  "startYear" : 1997,
+  "endYear" : 0,
+  "runTimeMinutes" : 101,
+  "averageRating" : 5,
+  "numVotes" : 0,
+  "directors" : "nm0139111",
+  "writes" : "nm0139111",
+  "genres" : "Comedy,Drama,Romance",
+  "names" : [ {
+    "nconst" : "nm0000098",
+    "primaryName" : "Jennifer Aniston",
+    "birthYear" : "1969",
+    "primaryProfession" : "actress,producer,soundtrack"
+  }, {
+    "nconst" : "nm0001542",
+    "primaryName" : "Jay Mohr",
+    "birthYear" : "1970",
+    "primaryProfession" : "actor,writer,producer"
+  }, {
+    "nconst" : "nm0000102",
+    "primaryName" : "Kevin Bacon",
+    "birthYear" : "1958",
+    "primaryProfession" : "actor,producer,soundtrack"
+  }, {
+    "nconst" : "nm0001156",
+    "primaryName" : "Olympia Dukakis",
+    "birthYear" : "1931",
+    "primaryProfession" : "actress,producer"
+  }, {
+    "nconst" : "nm0139111",
+    "primaryName" : "Glenn Gordon Caron",
+    "birthYear" : "1954",
+    "primaryProfession" : "writer,producer,director"
+  } ],
+  "adult" : false
+} ]</code></pre>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Search for top rated partial 'ama' genre titles which is partial word of genre 'Drama' with role 'TITLE'</strong></p>
+</div>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Request</div>
+<div class="content">
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">GET /title/toprated/genre/ama HTTP/1.1
+Role: TITLE</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Response</div>
+<div class="content">
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/hal+json
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 0
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+X-Frame-Options: DENY
+Content-Length: 1118
+
+[ {
+  "tconst" : "tt0119896",
+  "titleType" : "movie",
+  "primaryTitle" : "Picture Perfect",
+  "originalTitle" : "Picture Perfect",
+  "startYear" : 1997,
+  "endYear" : 0,
+  "runTimeMinutes" : 101,
+  "averageRating" : 5,
+  "numVotes" : 0,
+  "directors" : "nm0139111",
+  "writes" : "nm0139111",
+  "genres" : "Comedy,Drama,Romance",
+  "names" : [ {
+    "nconst" : "nm0000098",
+    "primaryName" : "Jennifer Aniston",
+    "birthYear" : "1969",
+    "primaryProfession" : "actress,producer,soundtrack"
+  }, {
+    "nconst" : "nm0001542",
+    "primaryName" : "Jay Mohr",
+    "birthYear" : "1970",
+    "primaryProfession" : "actor,writer,producer"
+  }, {
+    "nconst" : "nm0000102",
+    "primaryName" : "Kevin Bacon",
+    "birthYear" : "1958",
+    "primaryProfession" : "actor,producer,soundtrack"
+  }, {
+    "nconst" : "nm0001156",
+    "primaryName" : "Olympia Dukakis",
+    "birthYear" : "1931",
+    "primaryProfession" : "actress,producer"
+  }, {
+    "nconst" : "nm0139111",
+    "primaryName" : "Glenn Gordon Caron",
+    "birthYear" : "1954",
+    "primaryProfession" : "writer,producer,director"
+  } ],
+  "adult" : false
+} ]</code></pre>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Search for top rated partial genre titles which doesn&#8217;t exist</strong></p>
+</div>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Request</div>
+<div class="content">
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">GET /title/toprated/genre/NOTEXISTING HTTP/1.1
+Role: TITLE</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Response</div>
+<div class="content">
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/hal+json
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 0
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+X-Frame-Options: DENY
+Content-Length: 3
+
+[ ]</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_six_degrees_of_kevin_bacon">Six degrees of Kevin Bacon</h2>
 <div class="sectionbody">
-<div class="listingblock">
-<div class="title">request</div>
+<div class="sidebarblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-http" data-lang="http">GET /degree/nm0000102/nm0001542 HTTP/1.1</code></pre>
+<div class="paragraph">
+<p><strong>Getting 'six desgree of Kevin Bacon' for actor 'Jay Mohr' with role 'DEGREE'</strong></p>
+</div>
 </div>
 </div>
 <div class="listingblock">
-<div class="title">response</div>
+<div class="title">Request</div>
+<div class="content">
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">GET /degree/nm0000102/nm0001542 HTTP/1.1
+Role: DEGREE</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Response</div>
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json
@@ -586,7 +881,7 @@ Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
 X-Frame-Options: DENY
-Content-Length: 830
+Content-Length: 611
 
 {
   "baconDegree" : 1,
@@ -594,48 +889,138 @@ Content-Length: 830
     "name" : {
       "nconst" : "nm0001542",
       "primaryName" : "Jay Mohr",
-      "birthYear" : "1970",
-      "deathYear" : null,
-      "primaryProfession" : null
+      "birthYear" : "1970"
     },
     "title" : {
       "tconst" : "tt0119896",
       "titleType" : "movie",
-      "primaryTitle" : null,
       "originalTitle" : "Picture Perfect",
       "startYear" : 1997,
       "endYear" : 0,
       "runTimeMinutes" : 0,
       "averageRating" : 5,
       "numVotes" : 0,
-      "directors" : null,
-      "writes" : null,
       "genres" : "Comedy,Drama,Romance",
-      "names" : [ ],
       "adult" : false
     }
   }, {
     "name" : {
       "nconst" : "nm0000102",
       "primaryName" : "Kevin Bacon",
-      "birthYear" : "1958",
-      "deathYear" : null,
-      "primaryProfession" : null
+      "birthYear" : "1958"
     },
     "title" : null
   } ]
 }</code></pre>
 </div>
 </div>
+<div class="sidebarblock">
+<div class="content">
 <div class="paragraph">
-<p>As you can see the format is very simple, and in fact you always get the same message.</p>
+<p><strong>Getting 'six desgree of Kevin Bacon' for actor 'Vin Disel' with role 'DEGREE'</strong></p>
+</div>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Request</div>
+<div class="content">
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">GET /degree/nm0000102/nm0004874 HTTP/1.1
+Role: DEGREE</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Response</div>
+<div class="content">
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 0
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+X-Frame-Options: DENY
+Content-Length: 1057
+
+{
+  "baconDegree" : 2,
+  "path" : [ {
+    "name" : {
+      "nconst" : "nm0004874",
+      "primaryName" : "Vin Diesel",
+      "birthYear" : "1967"
+    },
+    "title" : {
+      "tconst" : "tt0129167",
+      "titleType" : "movie",
+      "originalTitle" : "The Iron Giant",
+      "startYear" : 1999,
+      "endYear" : 0,
+      "runTimeMinutes" : 0,
+      "averageRating" : 8,
+      "numVotes" : 0,
+      "genres" : "Action,Adventure,Animation",
+      "adult" : false
+    }
+  }, {
+    "name" : {
+      "nconst" : "nm0000098",
+      "primaryName" : "Jennifer Aniston",
+      "birthYear" : "1969"
+    },
+    "title" : {
+      "tconst" : "tt0119896",
+      "titleType" : "movie",
+      "originalTitle" : "Picture Perfect",
+      "startYear" : 1997,
+      "endYear" : 0,
+      "runTimeMinutes" : 0,
+      "averageRating" : 5,
+      "numVotes" : 0,
+      "genres" : "Comedy,Drama,Romance",
+      "adult" : false
+    }
+  }, {
+    "name" : {
+      "nconst" : "nm0000102",
+      "primaryName" : "Kevin Bacon",
+      "birthYear" : "1958"
+    },
+    "title" : null
+  } ]
+}</code></pre>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Getting 'six desgree of Kevin Bacon' for actor 'Vin Disel' but doesn&#8217;t contain required role 'DEGREE'</strong></p>
+</div>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Request</div>
+<div class="content">
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">GET /degree/nm0000102/nm0001542 HTTP/1.1</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Response</div>
+<div class="content">
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 403 Forbidden
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 0
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+X-Frame-Options: DENY</code></pre>
+</div>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-12-22 18:56:38 +0530
+Last updated 2022-12-23 13:24:46 +0530
 </div>
 </div>
 </body>

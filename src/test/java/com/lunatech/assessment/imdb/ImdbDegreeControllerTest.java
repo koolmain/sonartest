@@ -53,7 +53,7 @@ class ImdbDegreeControllerTest {
         .andExpect(jsonPath("$.path.[1].name.primaryName", equalTo("Jennifer Aniston")))
         .andExpect(jsonPath("$.path.[1].title.originalTitle", equalTo("Picture Perfect")))
         .andExpect(jsonPath("$.path.[2].name.primaryName", equalTo("Kevin Bacon")))
-        .andDo(document("degreeVinDisel",preprocessRequest(modifyHeaders().remove("Host")), preprocessResponse(prettyPrint())));
+        .andDo(document("degreeVinDisel",preprocessRequest(modifyHeaders().remove("Host").add("Role", "DEGREE")), preprocessResponse(prettyPrint())));
 	}
 
     @Test
@@ -65,7 +65,7 @@ class ImdbDegreeControllerTest {
         .andExpect(jsonPath("$.path.[0].name.primaryName", equalTo("Jay Mohr")))
         .andExpect(jsonPath("$.path.[0].title.originalTitle", equalTo("Picture Perfect")))
         .andExpect(jsonPath("$.path.[1].name.primaryName", equalTo("Kevin Bacon")))
-        .andDo(document("degreeJayMohr",preprocessRequest(modifyHeaders().remove("Host")), preprocessResponse(prettyPrint())));
+        .andDo(document("degreeJayMohr",preprocessRequest(modifyHeaders().remove("Host").add("Role", "DEGREE")), preprocessResponse(prettyPrint())));
 	}
 
     @Test
@@ -74,7 +74,10 @@ class ImdbDegreeControllerTest {
 		this.mockMvc.perform(get("/degree/nm00002/nm0001542")).andDo(print())
         .andExpect(status().isNotFound())
         .andExpect(jsonPath("$.status", equalTo("NOT_FOUND")))
-        .andExpect(jsonPath("$.message", equalTo("Name with id nm00002 not found"))); 
+        .andExpect(jsonPath("$.message", equalTo("Name with id nm00002 not found")))
+        .andDo(document("degreeJayMohr",preprocessRequest(modifyHeaders().remove("Host").add("Role", "DEGREE")), preprocessResponse(prettyPrint())));
+
+        
 	}   
     
     @Test

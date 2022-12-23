@@ -16,6 +16,13 @@ public class PrincipalsServiceImpl implements PrincipalsService{
     @Autowired
     private PrincipalsRepository principalsRepository; 
     
+    
+    /** 
+     * Get Principals (relation between Name and TItle)
+     * 
+     * @param id PrincipalsId 
+     * @return Optional<Principals>
+     */
     @Override
     public Optional<Principals> getPrincipalsById(PrincipalsId id) {
         return principalsRepository.findById(id);

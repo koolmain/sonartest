@@ -94,6 +94,7 @@ public class DegreeServiceImplIterative implements DegreeService{
      * @throws Exception
      */
     @Cacheable("degreePath")
+    @SuppressWarnings("java:S2201")
     @Override
     public DegreeDto getDegreeOfReachbetweenActors(String targetActor, String sourceActor){
         LinkedList<NameWithDegree> queue = new LinkedList<>(); 

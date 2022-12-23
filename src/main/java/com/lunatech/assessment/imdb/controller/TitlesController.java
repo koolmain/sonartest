@@ -30,7 +30,7 @@ public TitleDTO geTitleDetails(@PathVariable String id){
         .orElseThrow(()-> new ImdbNotFoundException(utils.getLocalMessage(ImdbI18NConstants.TITLE_NOT_FOUND, id)));    
 }
 
-@GetMapping(value="/toprated/genre/{genre:[a-zA-Z]+}", produces = "application/hal+json")
+@GetMapping(value="/toprated/genre/{genre:[a-zA-Z0-9]+}", produces = "application/hal+json")
 public List<TitleDTO> fetchTopRatedTitlesBygenre(@PathVariable String genre, @RequestParam(defaultValue = "0") int page){
     return  titleService.fetchTitleByGenre(genre, page); 
 }

@@ -1,6 +1,159 @@
 = Lunatech Imdb Copycat [VIRENDRA MISHRA]
 
-This is an example output for a service running at http://localhost:8080:
+This is IMDB copycat wit primarily below three requirement implmentations 
+
+
+### Requirement #1 (easy):
+
+IMDb copycat: Present the user with endpoint for allowing them to search by
+movie’s primary title or original title. The outcome should be related
+information to that title, including cast and crew.
+
+### Requirement #2 (easy):
+
+Top rated movies: Given a query by the user, you must provide what are the top
+rated movies for a genre (If the user searches horror, then it should show a
+list of top rated horror movies).
+
+### Requirement #3 (difficult):
+
+[Six degrees of Kevin
+Bacon](https://en.wikipedia.org/wiki/Six_Degrees_of_Kevin_Bacon): Given a query
+by the user, you must provide what’s the degree of separation between the person
+(e.g. actor or actress) the user has entered and Kevin Bacon. 
+
+****
+IMPORTANT: [big]#Technologies Used#
+
+* *Java 17*
+* *Maven*
+* *Spring boot*
+* *Sping data*
+* *Spring actuator*
+* *Junit5 and Springboot test*
+* *H2 databses for integrations test cases*
+* *Lombok* - auto generation getter/setter/constructor
+* *SonarCloud* - for Sonar quality check using github actions 
+* *PMD* - for PMD quality check using github actions 
+* *CheckStyle* - for Checkstyle  check using github actions 
+* *AsciiDoctor* - for documentation generation
+
+
+****
+
+****
+IMPORTANT: [big]#Functionalities implemented#
+
+* *Exception Handling*
+* *Security - Authentication/Authorization*
+* *Internationalization*
+* *Github workflow for PR and main branch*
+** *Compilation verification*
+** *Sonar*
+** *PMD*
+** *Checkstyle*
+
+* *Rest Docs document genreation* using Asciidoctor maven plugin
+* *Management Endpoints availale*
+** *health* http://localhost:8080/actuator/health
+** *metrics*  http://localhost:8080/actuator/metrics  http://localhost:8080/actuator/metrics/<detailmetrics>
+** *env* http://localhost:8080/actuator/env
+** *cache* http://localhost:8080/actuator/caches
+** *mappings* -- development http://localhost:8080/actuator/mappings
+** *beans* -- development http://localhost:8080/actuator/beans
+** *scheduletasks* -- development
+****
+
+****
+IMPORTANT: Functionalities for future
+
+* *AUTO Deployment using docker and Jenkins*
+* *Terraform for code release deployment* - deployment as a code
+* *Hateoas*
+* *Jmeter Load test*
+* *Metrics capture using Prometheus*
+* *Test cases for services and repository*
+* *Test cases using Testcontainer* -- was not working for me. May be because of apple silicon (M1 chips). Earlier using same issues with docker images. 
+* *Auto generated ER diagrams from entities* - Diagram as a code
+* *Auto Class diagram for applicaiton* - Diagram as a code
+
+****
+
+.Test data used for testcases
+[options="header,footer"]
+[Attributes]
+|===
+|Test file  | path |Description
+
+|names.sql |src/main/test/resources/testdata/names.sql| contains names used for test cases
+|titles.sql |src/main/test/resources/testdata/titles.sql| contains titles used for test cases
+|crew.sql |src/main/test/resources/testdata/crew.sql| contains crew used for test cases
+|ratings.sql |src/main/test/resources/testdata/ratings.sql| contains ratings used for test cases
+|principals.sql |src/main/test/resources/testdata/principals.sql| contains principals (relationship b/w titles and names) used for test cases
+|===
+
+
+.All files content used in above files
+[Attributes]
+|===
+|Title |Names  
+
+s|tt0129167 (The Iron giant) - 1999 a|* nm0000098 (Jennifer Aniston) 
+*  nm0004874 (Vin Diesel)  
+* nm0083348(Brad Bird) -- Writer/Director
+* nm0547349(Eli Marienthal)
+----
+
+s|tt0119896 (Picture Perfect) - 1997 a|* nm0001542(Jay Mohr) 
+* nm0001156(Olympia Dukakis)  
+* nm0000102(Kevin Bacon) 
+* nm0000098 (Jennifer Aniston)
+* nm0139111 (Glenn Gordon Caron) -- Writer/Director
+
+|===
+
+== Available Roles
+[Attributes]
+|===
+|Role  |Urls
+
+s|DEGREE
+| /degree/**
+s|NAME
+| /name/**
+s|TITLE
+| /title/**
+|===
+
+== Avalable Credentials
+[Attributes]
+|===
+|UserName |Password |Assigned Role
+
+s| userT | passwordT | TITLE
+s| userN | passwordN | NAME
+s| userD | passwordD | DEGREE
+s| userTN | passwordTN | TITLE, NAME
+s| userTND | passwordTND | TITLE, NAME, DEGREE
+s| usernr | passwordnr | NOROLE
+
+|===
+
+== Available Url patterns 
+[Attributes]
+|===
+| Url pattern | ROLE required | Description
+
+| /title/details/{id}  | TITLE | Get details of Title given 'id'
+| /title/toprated/genre/{genre}?page=1   | TITLE |  Fetch top rated title for given 'genre' -- page support available (one page size = 5 )
+| /title/name/{titleName}?page=1  | TITLE | Fetched Title for given 'titleName'  -- page support available (one page size =10 )
+| /name/summary/{id}  | NAME | Get summary of Name for given 'id'
+| /name/details/{id}  | NAME |  Get details of Name for given 'id'
+| /degree/{targetActor}/{sourceActor}" | DEGREE | fetch degree of reach between source to target actor
+|===
+
+
+
 
 == Namesearch
 

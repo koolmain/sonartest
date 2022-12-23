@@ -1,2 +1,0 @@
-INSERT INTO title_basics VALUES ("tt0129167","movie","The Iron Giant","The Iron Giant","0","1999","\N","86","Action,Adventure,Animation");
-INSERT INTO title_basics("tconst","titleType","primaryTitle","originalTitle","isAdult","startYear","endYear","runtimeMinutes","genres") VALUES ("tt0119896","movie","Picture Perfect","Picture Perfect","0","1997","\N","101","Comedy,Drama,Romance");

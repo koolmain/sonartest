@@ -1,0 +1,65 @@
+{
+    "baconDegree": 2,
+    "path": [
+        {
+            "name": {
+                "nconst": "nm0004874",
+                "primaryName": "Vin Diesel",
+                "birthYear": "1967",
+                "deathYear": null,
+                "primaryProfession": null
+            },
+            "title": {
+                "tconst": "tt0129167",
+                "titleType": "movie",
+                "primaryTitle": null,
+                "originalTitle": "The Iron Giant",
+                "startYear": 1999,
+                "endYear": 0,
+                "runTimeMinutes": 0,
+                "averageRating": 8,
+                "numVotes": 0,
+                "directors": null,
+                "writes": null,
+                "genres": "Action,Adventure,Animation",
+                "names": [],
+                "adult": false
+            }
+        },
+        {
+            "name": {
+                "nconst": "nm0000098",
+                "primaryName": "Jennifer Aniston",
+                "birthYear": "1969",
+                "deathYear": null,
+                "primaryProfession": null
+            },
+            "title": {
+                "tconst": "tt0119896",
+                "titleType": "movie",
+                "primaryTitle": null,
+                "originalTitle": "Picture Perfect",
+                "startYear": 1997,
+                "endYear": 0,
+                "runTimeMinutes": 0,
+                "averageRating": 5,
+                "numVotes": 0,
+                "directors": null,
+                "writes": null,
+                "genres": "Comedy,Drama,Romance",
+                "names": [],
+                "adult": false
+            }
+        },
+        {
+            "name": {
+                "nconst": "nm0000102",
+                "primaryName": "Kevin Bacon",
+                "birthYear": "1958",
+                "deathYear": null,
+                "primaryProfession": null
+            },
+            "title": null
+        }
+    ]
+}

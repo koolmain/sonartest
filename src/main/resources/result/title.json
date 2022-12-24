@@ -1,0 +1,45 @@
+{
+    "tconst": "tt0000630",
+    "titleType": "movie",
+    "primaryTitle": "Hamlet",
+    "originalTitle": "Amleto",
+    "startYear": 1908,
+    "endYear": 0,
+    "runTimeMinutes": 0,
+    "averageRating": 3,
+    "numVotes": 0,
+    "directors": "nm0143333",
+    "writes": "nm0000636",
+    "genres": "Drama",
+    "names": [
+        {
+            "nconst": "nm0624446",
+            "primaryName": "Fernanda Negri Pouget",
+            "birthYear": "1889",
+            "deathYear": "1955",
+            "primaryProfession": "actress"
+        },
+        {
+            "nconst": "nm0143333",
+            "primaryName": "Mario Caserini",
+            "birthYear": "1874",
+            "deathYear": "1920",
+            "primaryProfession": "director,actor,writer"
+        },
+        {
+            "nconst": "nm0000636",
+            "primaryName": "William Shakespeare",
+            "birthYear": "1564",
+            "deathYear": "1616",
+            "primaryProfession": "writer,soundtrack,miscellaneous"
+        },
+        {
+            "nconst": "nm0209738",
+            "primaryName": "Giuseppe de Liguoro",
+            "birthYear": "1869",
+            "deathYear": "1944",
+            "primaryProfession": "director,actor,writer"
+        }
+    ],
+    "adult": false
+}

@@ -25,18 +25,18 @@ private TitleService titleService;
 private ImdbUtils utils;
 
 @GetMapping(value="/details/{id}" ,produces = "application/hal+json" )
-public TitleDTO geTitleDetails(@PathVariable String id){
+public TitleDTO geTitleDetails(@PathVariable final String id){
     return titleService.getTitleById(id)
         .orElseThrow(()-> new ImdbNotFoundException(utils.getLocalMessage(ImdbI18NConstants.TITLE_NOT_FOUND, id)));    
 }
 
 @GetMapping(value="/toprated/genre/{genre:[a-zA-Z0-9]+}", produces = "application/hal+json")
-public List<TitleDTO> fetchTopRatedTitlesBygenre(@PathVariable String genre, @RequestParam(defaultValue = "0") int page){
+public List<TitleDTO> fetchTopRatedTitlesBygenre(@PathVariable final String genre, @RequestParam(defaultValue = "0") final int page){
     return  titleService.fetchTitleByGenre(genre, page); 
 }
 
 @GetMapping(value="/name/{titleName:.*}", produces = "application/hal+json")
-public List<TitleDTO> fetchTitleByPrimaryOrOriginalTitle(@PathVariable String titleName, @RequestParam(defaultValue = "0") int page){
+public List<TitleDTO> fetchTitleByPrimaryOrOriginalTitle(@PathVariable final String titleName, @RequestParam(defaultValue = "0") final int page){
     return titleService.fetchTitlesByTitleName(titleName, page); 
 }
 

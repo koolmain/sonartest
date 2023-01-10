@@ -26,14 +26,14 @@ public class NamesController {
     
 
     @GetMapping(value = "summary/{id}", produces = "application/hal+json")
-    public NameSmmary getNameSummary(@PathVariable String id){
+    public NameSmmary getNameSummary(@PathVariable final String id){
         return nameService.getNameSummaryById(id)
                     .orElseThrow(()-> new ImdbNotFoundException(utils.getLocalMessage(ImdbI18NConstants.NAME_NOT_FOUND, id)));    
 
     }
 
     @GetMapping(value = "details/{id}", produces = "application/hal+json")
-    public Name getNameDetails(@PathVariable String id){
+    public Name getNameDetails(@PathVariable final String id){
         return nameService.getNameById(id)
                     .orElseThrow(()-> new ImdbNotFoundException(utils.getLocalMessage(ImdbI18NConstants.NAME_NOT_FOUND, id)));    
     }

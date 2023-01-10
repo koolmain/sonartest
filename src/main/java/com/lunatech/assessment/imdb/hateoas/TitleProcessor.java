@@ -21,7 +21,7 @@ public class TitleProcessor implements RepresentationModelProcessor<EntityModel<
 
     private static final String URL_SYNTAX_EXCEPTION = "URL Syntax exception";
 	private static final Logger log = LoggerFactory.getLogger(TitleProcessor.class); 
-	private RepositoryRestConfiguration configuration; 
+	private final RepositoryRestConfiguration configuration; 
 
     public TitleProcessor(RepositoryRestConfiguration configuration){
         this.configuration= configuration; 

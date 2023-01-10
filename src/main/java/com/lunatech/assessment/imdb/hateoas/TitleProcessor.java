@@ -24,9 +24,9 @@ public class TitleProcessor implements RepresentationModelProcessor<EntityModel<
     }
 
     @Override
+	@SuppressWarnings("java:S2259")
     public EntityModel<Title> process(EntityModel<Title> model) {
         TitlesController controller = methodOn(TitlesController.class);
-
         String basePath = configuration.getBasePath().toString(); 
         model.add(applyBasePath(linkTo(controller.geTitleDetails(model.getContent().getTconst())).withSelfRel(),basePath)); 
         return model;
@@ -44,7 +44,7 @@ public class TitleProcessor implements RepresentationModelProcessor<EntityModel<
 
 		URI uri = link.toUri();
 
-		URI newUri = null;
+		URI newUri = uri;
 		try {
 			newUri = new URI(uri.getScheme(), uri.getUserInfo(), uri.getHost(), //
 					uri.getPort(), basePath + uri.getPath(), uri.getQuery(), uri.getFragment());
